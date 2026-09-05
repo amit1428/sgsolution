@@ -1,0 +1,39 @@
+name: Deploy to BigRock Hosting
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  web-deploy:
+    name: Sync Files to BigRock cPanel (public_html)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Checkout Repository Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 📂 Deploy via FTP to BigRock
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.BIGROCK_FTP_SERVER }}
+          username: ${{ secrets.BIGROCK_FTP_USERNAME }}
+          password: ${{ secrets.BIGROCK_FTP_PASSWORD }}
+          port: ${{ secrets.BIGROCK_FTP_PORT || 21 }}
+          server-dir: ${{ secrets.BIGROCK_FTP_SERVER_DIR || './' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            package.json
+            package-lock.json
+            build_dist.ps1
+            dist/**
+            dist.zip
+            stitch_ref/**
+            frames/**
+            README.md
+            .github/**

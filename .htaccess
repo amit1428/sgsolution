@@ -1,0 +1,67 @@
+# =========================================================================
+# SG SOLUTIONS — PRODUCTION APACHE / LITESPEED CONFIGURATION (.htaccess)
+# Optimized for Hostinger hPanel & cPanel Deployment
+# =========================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Force HTTPS (Optional - Recommended for Hostinger with SSL)
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 2. Redirect /admin or /admin/ cleanly to the Admin Login Portal if direct index
+    RewriteRule ^admin/?$ admin/login.php [L,QSA]
+
+    # 3. Protect Database files and sensitive scripts from direct download
+    RewriteRule \.(sqlite|sqlite3|db|sql|log|env|git|lock)$ - [F,L,NC]
+</IfModule>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Media & Static Asset Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType video/mp4 "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Gzip / Brotli Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Set correct MIME types
+<IfModule mod_mime.c>
+    AddType video/mp4 .mp4
+    AddType image/webp .webp
+    AddType image/svg+xml .svg
+    AddType font/woff2 .woff2
+</IfModule>

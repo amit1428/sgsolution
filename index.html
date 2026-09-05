@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SG Solutions | Global Enterprise Architecture & Digital Transformation</title>
+  <meta name="description" content="SG Solutions architects scalable digital systems, enterprise applications, intelligent CRM automation, and high-performance engineering for Fortune 500 organizations worldwide.">
+  
+  <!-- Modern Typography: Manrope + Plus Jakarta Sans + Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body class="antialiased selection-gold">
+
+
+
+  <!-- Ambient Interactive Cursor Spotlight (3D dynamic lighting) -->
+  <div class="cursor-spotlight" id="cursor-spotlight"></div>
+
+  <!-- Top Navigation Bar (MNC Glassmorphism) -->
+  <header class="mnc-navbar-container">
+    <nav class="mnc-navbar" id="mnc-navbar">
+      <a href="#" class="brand-link" aria-label="SG Solutions Home">
+        <img src="./logo.png?v=2" alt="SG Solutions - Spark Growth In A Click" class="brand-logo-img">
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-menu">
+        <li><a href="#scrolly-section" class="nav-item active">Overview</a></li>
+        <li><a href="#metrics-section" class="nav-item">Impact</a></li>
+        <li><a href="#capabilities-section" class="nav-item">Capabilities</a></li>
+        <li><a href="#services-section" class="nav-item">Services</a></li>
+        <li><a href="#portfolio-section" class="nav-item">Projects</a></li>
+        <li><a href="#gallery-section" class="nav-item">Gallery</a></li>
+        <li><a href="#testimonials-section" class="nav-item">Reviews</a></li>
+        <li><a href="#story-section" class="nav-item">Legacy</a></li>
+      </ul>
+
+      <!-- Action & Status Cluster -->
+      <div class="nav-actions">
+        <button class="cta-gold-btn" id="open-consult-btn">
+          <span>Schedule Consultation</span>
+          <span class="material-symbols-outlined text-sm icon-arrow">arrow_forward</span>
+        </button>
+        <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <div class="mobile-drawer-content">
+        <a href="#scrolly-section" class="mobile-link">Overview</a>
+        <a href="#metrics-section" class="mobile-link">Impact & Metrics</a>
+        <a href="#capabilities-section" class="mobile-link">Core Capabilities</a>
+        <a href="#services-section" class="mobile-link">Digital Services</a>
+        <a href="#portfolio-section" class="mobile-link">Portfolio Projects</a>
+        <a href="#gallery-section" class="mobile-link">Visual Gallery</a>
+        <a href="#testimonials-section" class="mobile-link">Client Reviews</a>
+        <a href="#story-section" class="mobile-link">Our Heritage</a>
+        <a href="#leadership-section" class="mobile-link">Executive Leadership</a>
+        <a href="http://localhost:8000/admin/index.php" class="mobile-link text-gold" target="_blank">Admin CMS Portal</a>
+        <button class="cta-gold-btn full-w" id="mobile-consult-btn">
+          <span>Get in Touch</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Flagship Visual Hero Section -->
+  <main class="hero-section" id="scrolly-section">
+    <!-- Ambient Background Lighting Orbs -->
+    <div class="ambient-glow orb-1"></div>
+    <div class="ambient-glow orb-2"></div>
+    <div class="ambient-glow orb-3"></div>
+
+    <!-- Full-Width Hero Video Backdrop -->
+    <div class="hero-image-backdrop" id="hero-image-backdrop">
+      <video 
+        class="hero-bg-video" 
+        id="hero-bg-video" 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        preload="auto">
+        <source src="./Woman_typing_on_laptop_1080p_202609011623.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-overlay"></div>
+    </div>
+
+    <!-- Hero Content Overlay (Empowering Creativity, Technology & Innovation) -->
+    <div class="hero-content-stage" id="hero-content-stage">
+      <div class="hero-content-card">
+        <h1 class="hero-main-title">
+          <span class="hero-brand-green">Empowering</span> <span class="hero-brand-gold">Creativity,</span><br>
+          <span class="hero-brand-green">Technology &amp; Innovation</span>
+        </h1>
+        <p class="hero-main-subtitle">
+          At <strong class="hero-para-gold">SG Solutions</strong>, we bring your ideas to life with <span class="hero-para-green">cutting-edge designs</span>, powerful applications, seamless APIs, and impactful digital marketing strategies—all tailored to elevate your brand.
+        </p>
+      </div>
+
+      <!-- Hero Action Buttons Positioned on Bottom Right -->
+      <div class="hero-cta-bottom-right">
+        <button class="hero-sound-toggle-btn" id="hero-sound-toggle-btn" title="Toggle video audio">
+          <span class="material-symbols-outlined text-sm audio-icon" id="hero-sound-icon">volume_off</span>
+          <span id="hero-sound-text">Play Audio</span>
+        </button>
+        <a href="#services-section" class="hero-btn-primary">
+          <span>Explore Services</span>
+          <span class="btn-icon-circle"><span class="material-symbols-outlined text-sm">north_east</span></span>
+        </a>
+        <button class="hero-btn-secondary" id="hero-contact-btn">
+          <span>Contact Now</span>
+          <span class="btn-icon-circle"><span class="material-symbols-outlined text-sm">north_east</span></span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       SECTION 1: Metrics Impact Bar (3D Floating Metric Tiles)
+       ========================================================================= -->
+  <section class="metrics-bar-section" id="metrics-section">
+    <div class="section-container">
+      <div class="metrics-grid">
+        <!-- Metric 1 -->
+        <div class="metric-card card-3d" data-tilt>
+          <div class="card-glare"></div>
+          <div class="metric-glow"></div>
+          <div class="metric-number-wrap">
+            <span class="metric-number counter" data-target="100">0</span>
+            <span class="metric-suffix">+</span>
+          </div>
+          <div class="metric-title">GLOBAL PROJECTS DELIVERED</div>
+          <div class="metric-desc">Mission-critical enterprise deployments across 30+ countries.</div>
+        </div>
+
+        <!-- Metric 2 -->
+        <div class="metric-card card-3d" data-tilt>
+          <div class="card-glare"></div>
+          <div class="metric-glow"></div>
+          <div class="metric-number-wrap">
+            <span class="metric-number counter" data-target="50">0</span>
+            <span class="metric-suffix">+</span>
+          </div>
+          <div class="metric-title">ENTERPRISE CLIENTS</div>
+          <div class="metric-desc">Fortune 500 corporations, financial titans & tech pioneers.</div>
+        </div>
+
+        <!-- Metric 3 -->
+        <div class="metric-card card-3d" data-tilt>
+          <div class="card-glare"></div>
+          <div class="metric-glow"></div>
+          <div class="metric-number-wrap">
+            <span class="metric-number counter" data-target="10">0</span>
+            <span class="metric-suffix">+</span>
+          </div>
+          <div class="metric-title">CORE PROPRIETARY PLATFORMS</div>
+          <div class="metric-desc">Bespoke frameworks powering high-concurrency systems.</div>
+        </div>
+
+        <!-- Metric 4 -->
+        <div class="metric-card card-3d" data-tilt>
+          <div class="card-glare"></div>
+          <div class="metric-glow"></div>
+          <div class="metric-number-wrap">
+            <span class="metric-number counter" data-target="99">0</span>
+            <span class="metric-suffix">%</span>
+          </div>
+          <div class="metric-title">CLIENT RETENTION RATE</div>
+          <div class="metric-desc">Unwavering long-term partnerships driven by measurable ROI.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 2: Core Capabilities Grid (01 to 06)
+       ========================================================================= -->
+  <section class="capabilities-section" id="capabilities-section">
+    <div class="section-container">
+      <div class="section-header center-align animate-on-scroll">
+        <span class="section-badge-gold">
+          <span class="badge-dot"></span>
+          ENGINEERED FOR SCALE
+        </span>
+        <h2 class="section-title">Core Capabilities</h2>
+        <div class="title-gold-divider"></div>
+        <p class="section-subtitle">Strategic implementation across the digital spectrum, engineered for precision, fault-tolerance, and institutional scale.</p>
+      </div>
+
+      <div class="capabilities-grid">
+        <!-- Capability 01 -->
+        <div class="capability-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="capability-top">
+            <span class="capability-num">01</span>
+            <div class="capability-icon-wrap">
+              <span class="material-symbols-outlined capability-icon">devices</span>
+            </div>
+          </div>
+          <h3 class="capability-heading">Web & Mobile Engineering</h3>
+          <p class="capability-body">Architecting resilient, ultra-scalable platforms providing seamless omnichannel experiences with sub-millisecond response benchmarks.</p>
+          <div class="capability-tags">
+            <span class="sub-pill"><span class="pill-dot"></span>React & React Native</span>
+            <span class="sub-pill"><span class="pill-dot"></span>iOS & Android Native</span>
+            <span class="sub-pill"><span class="pill-dot"></span>WebGL & Microfrontends</span>
+          </div>
+          <div class="card-bottom-accent"></div>
+        </div>
+
+        <!-- Capability 02 -->
+        <div class="capability-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="capability-top">
+            <span class="capability-num">02</span>
+            <div class="capability-icon-wrap">
+              <span class="material-symbols-outlined capability-icon">terminal</span>
+            </div>
+          </div>
+          <h3 class="capability-heading">Custom Software Architecture</h3>
+          <p class="capability-body">Developing proprietary software systems tailored to unique operational models, bypassing off-the-shelf constraints to lock in competitive moat.</p>
+          <div class="capability-tags">
+            <span class="sub-pill"><span class="pill-dot"></span>Enterprise Architecture</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Cloud Native Solutions</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Distributed Consensus</span>
+          </div>
+          <div class="card-bottom-accent"></div>
+        </div>
+
+        <!-- Capability 03 -->
+        <div class="capability-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="capability-top">
+            <span class="capability-num">03</span>
+            <div class="capability-icon-wrap">
+              <span class="material-symbols-outlined capability-icon">hub</span>
+            </div>
+          </div>
+          <h3 class="capability-heading">CRM & Data Integration</h3>
+          <p class="capability-body">Unifying enterprise customer data ecosystems. We seamlessly integrate complex CRM pipelines to power automated intelligence and predictive insights.</p>
+          <div class="capability-tags">
+            <span class="sub-pill"><span class="pill-dot"></span>Salesforce & HubSpot</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Custom API Middleware</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Bi-directional ETL</span>
+          </div>
+          <div class="card-bottom-accent"></div>
+        </div>
+
+        <!-- Capability 04 -->
+        <div class="capability-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="capability-top">
+            <span class="capability-num">04</span>
+            <div class="capability-icon-wrap">
+              <span class="material-symbols-outlined capability-icon">campaign</span>
+            </div>
+          </div>
+          <h3 class="capability-heading">Enterprise Digital Marketing</h3>
+          <p class="capability-body">Data-driven acquisition engines deployed across high-intent channels, focusing on verifiable customer lifetime value and institutional expansion.</p>
+          <div class="capability-tags">
+            <span class="sub-pill"><span class="pill-dot"></span>Campaign Structuring</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Conversion Attribution</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Predictive Funnels</span>
+          </div>
+          <div class="card-bottom-accent"></div>
+        </div>
+
+        <!-- Capability 05 -->
+        <div class="capability-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="capability-top">
+            <span class="capability-num">05</span>
+            <div class="capability-icon-wrap">
+              <span class="material-symbols-outlined capability-icon">query_stats</span>
+            </div>
+          </div>
+          <h3 class="capability-heading">Technical SEO Optimization</h3>
+          <p class="capability-body">Deep technical search engine architecture, algorithmic content optimization, and programmatic indexing to dominate authoritative keyword categories.</p>
+          <div class="capability-tags">
+            <span class="sub-pill"><span class="pill-dot"></span>Core Web Vitals 100%</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Authority Building</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Structured Knowledge Graphs</span>
+          </div>
+          <div class="card-bottom-accent"></div>
+        </div>
+
+        <!-- Capability 06 -->
+        <div class="capability-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="capability-top">
+            <span class="capability-num">06</span>
+            <div class="capability-icon-wrap">
+              <span class="material-symbols-outlined capability-icon">precision_manufacturing</span>
+            </div>
+          </div>
+          <h3 class="capability-heading">Intelligent Business Automation</h3>
+          <p class="capability-body">Eliminating operational bottlenecks through intelligent RPA workflows, AI agents, and event-driven automation that accelerate execution velocity.</p>
+          <div class="capability-tags">
+            <span class="sub-pill"><span class="pill-dot"></span>Process Mapping</span>
+            <span class="sub-pill"><span class="pill-dot"></span>RPA & AI Workflows</span>
+            <span class="sub-pill"><span class="pill-dot"></span>Continuous Governance</span>
+          </div>
+          <div class="card-bottom-accent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3: SG Enterprise Services Showcase (Cupertino Craft Architecture)
+       ========================================================================= -->
+  <section class="services-showcase-section" id="services-section">
+    <div class="section-container">
+      <!-- Section Header -->
+      <div class="section-header animate-on-scroll">
+        <span class="section-badge-gold">
+          <span class="badge-dot"></span>
+          SG ENTERPRISE SERVICES
+        </span>
+        <h2 class="section-title">The Best Digital Experiences.<br>Engineered by SG.</h2>
+        <p class="section-subtitle">Enterprise web architecture, native mobile applications, intelligent CRM automation, and high-performance digital marketing. All crafted to scale effortlessly across your global organization.</p>
+      </div>
+
+      <!-- SG Enterprise Suite Flagship Hero Card -->
+      <div class="suite-hero-card card-3d animate-on-scroll" data-tilt>
+        <div class="suite-ambient-glow"></div>
+        <div class="suite-card-top">
+          <div class="suite-icon-badge">
+            <span class="material-symbols-outlined suite-icon">layers</span>
+          </div>
+          <div>
+            <span class="suite-brand-title">SG Enterprise Suite</span>
+            <p class="suite-brand-subtitle">All your digital capabilities. One unified ecosystem.</p>
+          </div>
+        </div>
+
+        <div class="suite-card-body">
+          <h3 class="suite-headline">
+            Bundle up to six enterprise services. And scale faster for less.
+          </h3>
+          <div class="suite-badge-pill">
+            <span class="material-symbols-outlined text-xs">verified</span>
+            <span>Dedicated Architecture Pod • Custom Enterprise SLA • Free Discovery Sprint</span>
+          </div>
+        </div>
+
+        <!-- 6 Distinct Service Badges Cluster -->
+        <div class="suite-service-cluster">
+          <div class="cluster-badge badge-web" title="Web & Headless Engineering">
+            <span class="material-symbols-outlined">language</span>
+            <span class="badge-label">Web</span>
+          </div>
+          <div class="cluster-badge badge-mobile" title="iOS & Android Mobile">
+            <span class="material-symbols-outlined">phone_iphone</span>
+            <span class="badge-label">Mobile</span>
+          </div>
+          <div class="cluster-badge badge-crm" title="CRM & Cloud Automation">
+            <span class="material-symbols-outlined">schema</span>
+            <span class="badge-label">CRM</span>
+          </div>
+          <div class="cluster-badge badge-marketing" title="Digital Marketing & Growth">
+            <span class="material-symbols-outlined">trending_up</span>
+            <span class="badge-label">Growth</span>
+          </div>
+          <div class="cluster-badge badge-seo" title="Technical SEO Architecture">
+            <span class="material-symbols-outlined">query_stats</span>
+            <span class="badge-label">SEO</span>
+          </div>
+          <div class="cluster-badge badge-cloud" title="Cloud & AI Infrastructure">
+            <span class="material-symbols-outlined">cloud</span>
+            <span class="badge-label">Cloud</span>
+          </div>
+        </div>
+
+        <!-- Action Button Group -->
+        <div class="suite-action-group">
+          <button class="cta-gold-btn lg" id="cta-suite-explore-btn">
+            <span>Explore SG Enterprise Suite</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+          <a href="#servicesGrid" class="suite-learn-more-link">
+            <span>Discover Individual Services</span>
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Category Filter Chips -->
+      <div class="category-filter-wrap animate-on-scroll">
+        <div class="category-chips-bar" id="categoryChips">
+          <button class="chip-item active" data-filter="all" type="button">
+            <span>All Services</span>
+          </button>
+          <button class="chip-item" data-filter="web" type="button">
+            <span>Engineering &amp; Web</span>
+          </button>
+          <button class="chip-item" data-filter="mobile" type="button">
+            <span>Mobile &amp; Apps</span>
+          </button>
+          <button class="chip-item" data-filter="crm" type="button">
+            <span>Cloud &amp; CRM</span>
+          </button>
+          <button class="chip-item" data-filter="marketing" type="button">
+            <span>Growth &amp; SEO</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Curated Services Showcase Grid -->
+      <div class="services-showcase-grid" id="servicesGrid">
+        <!-- Service 1: Web Development & Headless Platforms (Featured Media Banner Card) -->
+        <article class="service-feature-card card-3d animate-on-scroll" data-category="web" data-tilt>
+          <div class="service-media-header">
+            <div class="service-media-gradient"></div>
+            <div class="service-media-tag">
+              <span class="material-symbols-outlined text-white text-sm">code</span>
+              <span class="text-white font-bold text-sm">Enterprise Web &amp; Headless Architecture</span>
+            </div>
+            <span class="service-media-sub">Next-Generation Micro-Frontends &amp; Global Edge Delivery</span>
+          </div>
+          <div class="service-card-content">
+            <p class="service-desc-text">
+              High-concurrency web systems engineered for sub-millisecond response times, military-grade security, and immersive visual storytelling. Tailored for Next.js, Headless CMS, and global CDN delivery.
+            </p>
+            <div class="service-tags-row">
+              <span class="spec-pill"><span class="pill-dot"></span>Sub-100ms Core Web Vitals</span>
+              <span class="spec-pill"><span class="pill-dot"></span>Global Edge CDN</span>
+              <span class="spec-pill"><span class="pill-dot"></span>Next.js &amp; TypeScript</span>
+            </div>
+            <div class="service-footer-row">
+              <span class="service-price-note">Bespoke Architecture • Enterprise SLA</span>
+              <button class="bento-explore-btn" data-service="web">
+                <span>Explore Architecture</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 2: Native Mobile Engineering -->
+        <article class="service-feature-card card-3d animate-on-scroll" data-category="mobile" data-tilt>
+          <div class="service-card-header">
+            <div class="service-icon-cluster">
+              <div class="service-icon-box bg-indigo-gradient">
+                <span class="material-symbols-outlined">phone_iphone</span>
+              </div>
+              <div>
+                <h3 class="service-title">iOS &amp; Android Native Mobile</h3>
+                <span class="service-tagline text-indigo">Fluid 120Hz Animations • Offline First</span>
+              </div>
+            </div>
+            <span class="badge-pill-light">Zero Latency</span>
+          </div>
+          <div class="service-card-content">
+            <p class="service-desc-text">
+              Native iOS and Android mobile architectures crafted to engage millions of concurrent users with zero lag, fluid 120Hz transitions, and biometric encryption.
+            </p>
+            <div class="service-metric-box">
+              <div class="metric-row-inline">
+                <span class="material-symbols-outlined text-emerald">speed</span>
+                <span class="metric-label-inline">Cross-Platform Native Parity &amp; Micro-Interactions</span>
+              </div>
+              <span class="metric-sub-text">React Native • Swift • Kotlin</span>
+            </div>
+            <div class="service-footer-row">
+              <span class="service-price-note">Production Ready In Sprints</span>
+              <button class="bento-explore-btn" data-service="app">
+                <span>View Frameworks</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 3: CRM & Cloud Automation -->
+        <article class="service-feature-card card-3d animate-on-scroll" data-category="crm" data-tilt>
+          <div class="service-card-header">
+            <div class="service-icon-cluster">
+              <div class="service-icon-box bg-emerald-gradient">
+                <span class="material-symbols-outlined">schema</span>
+              </div>
+              <div>
+                <h3 class="service-title">Intelligent CRM &amp; Cloud Automation</h3>
+                <span class="service-tagline text-emerald">Zero-Latency Pipeline Integration</span>
+              </div>
+            </div>
+            <span class="badge-pill-emerald">Real-Time Sync</span>
+          </div>
+          <div class="service-card-content">
+            <p class="service-desc-text">
+              Custom enterprise CRM integrations, automated funnel workflows, and real-time bi-directional ETL synchronization turning raw telemetry into actionable pipeline revenue.
+            </p>
+            <!-- Storage / Telemetry Progress Bar Graphic -->
+            <div class="telemetry-box">
+              <div class="telemetry-top">
+                <span>Active Pipeline Telemetry</span>
+                <span class="telemetry-status">99.99% Uptime</span>
+              </div>
+              <div class="telemetry-bar">
+                <div class="telemetry-segment seg-1"></div>
+                <div class="telemetry-segment seg-2"></div>
+                <div class="telemetry-segment seg-3"></div>
+              </div>
+              <div class="telemetry-bottom">
+                <span>Salesforce &amp; HubSpot APIs</span>
+                <span>Sub-second ETL</span>
+              </div>
+            </div>
+            <div class="service-footer-row">
+              <span class="service-price-note">Enterprise Grade Security</span>
+              <button class="bento-explore-btn" data-service="crm">
+                <span>Discover CRM</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 4: Digital Marketing & Algorithmic Growth -->
+        <article class="service-feature-card card-3d animate-on-scroll" data-category="marketing" data-tilt>
+          <div class="service-card-header">
+            <div class="service-icon-cluster">
+              <div class="service-icon-box bg-gold-gradient">
+                <span class="material-symbols-outlined">trending_up</span>
+              </div>
+              <div>
+                <h3 class="service-title">Digital Marketing &amp; Algorithmic Growth</h3>
+                <span class="service-tagline text-gold">Multi-Touch Attribution AI</span>
+              </div>
+            </div>
+            <span class="badge-pill-gold">High Intent</span>
+          </div>
+          <div class="service-card-content">
+            <p class="service-desc-text">
+              Data-driven performance marketing encompassing algorithmic media acquisition, behavioral conversion funnel optimization, and multi-touch attribution models driving verifiable ARR.
+            </p>
+            <div class="service-metric-box">
+              <div class="metric-row-inline">
+                <span class="material-symbols-outlined text-gold">query_stats</span>
+                <span class="metric-label-inline">Programmatic Acquisition &amp; Revenue Attribution</span>
+              </div>
+              <span class="metric-sub-text">Google Ads • Meta • LinkedIn Enterprise</span>
+            </div>
+            <div class="service-footer-row">
+              <span class="service-price-note">Verifiable ROI Metrics</span>
+              <button class="bento-explore-btn" data-service="marketing">
+                <span>Growth Frameworks</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 5: Dual Compact Row (SEO & Cloud Infrastructure) -->
+        <div class="dual-service-row" data-category="marketing">
+          <article class="compact-service-card card-3d animate-on-scroll" data-category="marketing" data-tilt>
+            <div class="compact-card-icon bg-cyan-gradient">
+              <span class="material-symbols-outlined">search</span>
+            </div>
+            <h4 class="compact-card-title">Technical SEO Architecture</h4>
+            <p class="compact-card-desc">Programmatic search engine architecture, algorithmic structured graphs, and 100% Core Web Vitals optimization.</p>
+            <button class="compact-explore-btn bento-explore-btn" data-service="marketing">
+              <span>Explore SEO</span>
+              <span class="material-symbols-outlined text-xs">chevron_right</span>
+            </button>
+          </article>
+
+          <article class="compact-service-card card-3d animate-on-scroll" data-category="web" data-tilt>
+            <div class="compact-card-icon bg-violet-gradient">
+              <span class="material-symbols-outlined">terminal</span>
+            </div>
+            <h4 class="compact-card-title">Cloud Infrastructure &amp; APIs</h4>
+            <p class="compact-card-desc">Serverless microservices, distributed consensus architectures, and zero-trust API middleware built for scale.</p>
+            <button class="compact-explore-btn bento-explore-btn" data-service="web">
+              <span>View Cloud</span>
+              <span class="material-symbols-outlined text-xs">chevron_right</span>
+            </button>
+          </article>
+        </div>
+
+        <!-- Service 6: Enterprise API & Payment Systems -->
+        <article class="service-feature-card card-3d animate-on-scroll" data-category="crm" data-tilt>
+          <div class="service-card-header">
+            <div class="service-icon-cluster">
+              <div class="service-icon-box bg-slate-gradient">
+                <span class="material-symbols-outlined">credit_card</span>
+              </div>
+              <div>
+                <h3 class="service-title">Enterprise Financial APIs &amp; Gateway Architecture</h3>
+                <span class="service-tagline text-muted">Titanium Grade Security</span>
+              </div>
+            </div>
+            <span class="badge-pill-light">Sub-ms Settlement</span>
+          </div>
+          <div class="service-card-content">
+            <!-- Titanium Minimalist Card Visual Preview -->
+            <div class="titanium-card-preview">
+              <div class="titanium-top">
+                <span class="material-symbols-outlined">contactless</span>
+                <span class="titanium-label">SG Direct API</span>
+              </div>
+              <div class="titanium-bottom">
+                <span class="titanium-hash">•••• 8840</span>
+                <span class="titanium-sla">99.999% Fault Tolerance</span>
+              </div>
+            </div>
+            <p class="service-desc-text mt-3">
+              Frictionless multi-currency gateway integrations with automated reconciliation, tokenized biometric security, and zero chargeback architectures.
+            </p>
+            <div class="service-footer-row">
+              <span class="service-price-note">PCI-DSS Tier 1 Ready</span>
+              <button class="bento-explore-btn" data-service="crm">
+                <span>Apply Integration</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- The SG Difference Value Props -->
+      <div class="sg-difference-section animate-on-scroll">
+        <div class="difference-header">
+          <span class="section-badge-gold">
+            <span class="badge-dot"></span>
+            BUILT WITH INTENTION
+          </span>
+          <h3 class="difference-title">The SG Solutions Difference.</h3>
+        </div>
+
+        <div class="difference-grid">
+          <!-- Prop 1: Security & Privacy First -->
+          <div class="difference-card card-3d" data-tilt>
+            <div class="difference-icon-wrap bg-emerald-light">
+              <span class="material-symbols-outlined text-emerald">lock</span>
+            </div>
+            <div>
+              <h4 class="difference-item-title">Security &amp; Privacy First</h4>
+              <p class="difference-item-desc">We never compromise on proprietary source code or data security. Your infrastructure, customer pipelines, and algorithms remain strictly yours.</p>
+            </div>
+          </div>
+
+          <!-- Prop 2: Dedicated Engineering Pods -->
+          <div class="difference-card card-3d" data-tilt>
+            <div class="difference-icon-wrap bg-gold-light">
+              <span class="material-symbols-outlined text-gold">group</span>
+            </div>
+            <div>
+              <h4 class="difference-item-title">Dedicated Engineering Pods</h4>
+              <p class="difference-item-desc">Direct access to principal architects and specialized senior engineering squads with zero intermediary friction or handoff delays.</p>
+            </div>
+          </div>
+
+          <!-- Prop 3: Effortless Omnichannel Continuity -->
+          <div class="difference-card card-3d" data-tilt>
+            <div class="difference-icon-wrap bg-indigo-light">
+              <span class="material-symbols-outlined text-indigo">devices</span>
+            </div>
+            <div>
+              <h4 class="difference-item-title">Effortless Continuity</h4>
+              <p class="difference-item-desc">Unified design systems and robust shared component libraries ensure seamless synergy across Web, Mobile, CRM, and Marketing endpoints.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SG Enterprise Care+ Protection Banner -->
+      <div class="care-banner-card card-3d animate-on-scroll" data-tilt>
+        <div class="care-banner-left">
+          <div class="care-icon-badge">
+            <span class="material-symbols-outlined">verified_user</span>
+          </div>
+          <div>
+            <h4 class="care-title">SG Enterprise Care+</h4>
+            <p class="care-desc">24/7 dedicated site reliability engineering, proactive security audits, and continuous performance optimization for your critical production software.</p>
+          </div>
+        </div>
+        <div class="care-banner-right">
+          <span class="care-tag">Included with Enterprise Deployments</span>
+          <button class="cta-gold-btn" id="care-consult-btn">
+            <span>Check SLA Coverage</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3.5: Enterprise Projects Showcase (Dynamic SQLite Backend)
+       ========================================================================= -->
+  <section class="portfolio-section" id="portfolio-section">
+    <div class="section-container">
+      <div class="section-header center-align animate-on-scroll">
+        <span class="section-badge-gold">
+          <span class="badge-dot"></span>
+          DELIVERED EXCELLENCE
+        </span>
+        <h2 class="section-title">Enterprise Portfolio &amp; Case Studies</h2>
+        <div class="title-gold-divider"></div>
+        <p class="section-subtitle">Real-world institutional deployments, high-concurrency systems, and digital transformations powered by SG Solutions.</p>
+      </div>
+
+      <!-- Project Category Filters -->
+      <div class="portfolio-filters-container animate-on-scroll" id="portfolio-filter-buttons">
+        <button class="portfolio-filter-btn active" data-filter="all">All Projects</button>
+        <button class="portfolio-filter-btn" data-filter="Architecture">Architecture</button>
+        <button class="portfolio-filter-btn" data-filter="FinTech">FinTech</button>
+        <button class="portfolio-filter-btn" data-filter="Mobile & Web">Mobile &amp; Web</button>
+        <button class="portfolio-filter-btn" data-filter="Automation">Automation</button>
+      </div>
+
+      <!-- Dynamic Projects Grid (Hydrated by JS from SQLite) -->
+      <div class="portfolio-grid" id="dynamic-projects-grid">
+        <div class="loading-state-box">
+          <span class="material-symbols-outlined fa-spin">progress_activity</span>
+          <span>Loading Enterprise Portfolio...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3.6: Architectural Media & Visual Gallery (Dynamic SQLite Backend)
+       ========================================================================= -->
+  <section class="gallery-section" id="gallery-section">
+    <div class="section-container">
+      <div class="section-header center-align animate-on-scroll">
+        <span class="section-badge-gold">
+          <span class="badge-dot"></span>
+          VISUAL SHOWCASE
+        </span>
+        <h2 class="section-title">Design &amp; Engineering Gallery</h2>
+        <div class="title-gold-divider"></div>
+        <p class="section-subtitle">High-fidelity UI systems, architectural schematics, responsive platforms, and design milestones.</p>
+      </div>
+
+      <!-- Gallery Category Filters -->
+      <div class="portfolio-filters-container animate-on-scroll" id="gallery-filter-buttons">
+        <button class="gallery-filter-btn active" data-filter="all">All Media</button>
+        <button class="gallery-filter-btn" data-filter="Architecture">Architecture</button>
+        <button class="gallery-filter-btn" data-filter="Mobile">Mobile Apps</button>
+        <button class="gallery-filter-btn" data-filter="Dashboard">Dashboards</button>
+        <button class="gallery-filter-btn" data-filter="Engineering">Engineering</button>
+      </div>
+
+      <!-- Dynamic Gallery Grid (Hydrated by JS from SQLite) -->
+      <div class="gallery-showcase-grid" id="dynamic-gallery-grid">
+        <div class="loading-state-box">
+          <span class="material-symbols-outlined fa-spin">progress_activity</span>
+          <span>Loading Visual Showcase...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3.7: Client Testimonials & Executive Endorsements (Dynamic SQLite)
+       ========================================================================= -->
+  <section class="testimonials-section" id="testimonials-section">
+    <div class="section-container">
+      <div class="section-header center-align animate-on-scroll">
+        <span class="section-badge-gold">
+          <span class="badge-dot"></span>
+          EXECUTIVE TRUST
+        </span>
+        <h2 class="section-title">Client Endorsements &amp; Testimonials</h2>
+        <div class="title-gold-divider"></div>
+        <p class="section-subtitle">Hear directly from CTOs, product vice presidents, and enterprise architects who rely on SG Solutions.</p>
+      </div>
+
+      <!-- Dynamic Testimonials Grid (Hydrated by JS from SQLite) -->
+      <div class="testimonials-grid" id="dynamic-testimonials-grid">
+        <div class="loading-state-box">
+          <span class="material-symbols-outlined fa-spin">progress_activity</span>
+          <span>Loading Client Endorsements...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 4: Legacy & Corporate Story (3D Depth Presentation)
+       ========================================================================= -->
+  <section class="story-section" id="story-section">
+    <div class="section-container">
+      <div class="story-grid">
+        <!-- Story Copy -->
+        <div class="story-copy-col animate-on-scroll">
+          <span class="section-badge-gold">
+            <span class="badge-dot"></span>
+            OUR HERITAGE
+          </span>
+          <h2 class="section-title">Our Legacy of Excellence</h2>
+          <div class="title-gold-divider left-align"></div>
+          
+          <p class="story-paragraph highlight">
+            For over two decades, SG Solutions has stood at the intersection of profound industry expertise and cutting-edge technological innovation.
+          </p>
+          <p class="story-paragraph">
+            We partner with visionary boardrooms and technology leaders to navigate complexity, transforming ambitious digital strategies into operational reality with absolute precision.
+          </p>
+          <p class="story-paragraph">
+            Our methodology is grounded in quiet luxury, rigorous engineering discipline, and zero technical debt. We don't chase ephemeral trends; we engineer sustainable competitive advantage, delivering robust, scalable systems tailored to the exacting demands of our global enterprise clientele.
+          </p>
+
+          <div class="story-highlights-row">
+            <div class="story-stat-chip">
+              <span class="stat-number">20+</span>
+              <span class="stat-label">Years of Innovation</span>
+            </div>
+            <div class="story-stat-chip">
+              <span class="stat-number">99.99%</span>
+              <span class="stat-label">SLA Uptime Standard</span>
+            </div>
+            <div class="story-stat-chip">
+              <span class="stat-number">Tier 1</span>
+              <span class="stat-label">Enterprise Security</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Parallax Visual Boardroom Card -->
+        <div class="story-visual-col animate-on-scroll">
+          <div class="boardroom-card-3d card-3d" data-tilt>
+            <div class="card-glare"></div>
+            <div class="boardroom-img-wrap">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsOirB6ptRzviMnldnjajYStM5Lj8WEnkFd8kZz9J-Y2xTRNl2AjKCdYsUnZrraU7pT-wRzzcaqktkfsQT0b3rTBBKkWSeKiFoZuu3XsdWhC-hr5MwNu7IsDlGvJJWu24BpRNcuGRtcIbX0uyLSO6E-H6-L40aTrKc3lYoTCsDsM8kSGb2BY3YQvxYs8iSx_0VrygdKkCSwkza998etP57qZnS246xsSeiQNi9tqnSsXqn5WV2z5U_" 
+                   alt="SG Solutions Strategic Boardroom" 
+                   class="boardroom-img"
+                   loading="lazy">
+              <div class="boardroom-overlay"></div>
+            </div>
+
+            <!-- Floating 3D Badge on Boardroom Card -->
+            <div class="floating-story-badge">
+              <div class="badge-icon-wrap">
+                <span class="material-symbols-outlined text-gold">verified</span>
+              </div>
+              <div class="badge-info">
+                <span class="badge-title">GLOBAL ENTERPRISE CERTIFIED</span>
+                <span class="badge-sub">ISO 27001 & SOC2 TYPE II COMPLIANT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: Core Tenets (Mission & Values Bento)
+       ========================================================================= -->
+  <section class="tenets-section" id="tenets-section">
+    <div class="section-container">
+      <div class="section-header center-align animate-on-scroll">
+        <span class="section-badge-gold">
+          <span class="badge-dot"></span>
+          FOUNDATIONAL PILLARS
+        </span>
+        <h2 class="section-title">Core Tenets</h2>
+        <div class="title-gold-divider"></div>
+        <p class="section-subtitle">The immutable principles that guide every client engagement and architectural blueprint.</p>
+      </div>
+
+      <div class="tenets-grid">
+        <!-- Tenet 1: Innovation -->
+        <div class="tenet-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="tenet-icon-holder">
+            <span class="material-symbols-outlined tenet-symbol">lightbulb</span>
+          </div>
+          <h3 class="tenet-title">Innovation</h3>
+          <p class="tenet-desc">Pioneering breakthrough solutions that redefine industry standards, driven by relentless curiosity and rigorous algorithmic research.</p>
+          <div class="tenet-footer">
+            <span class="tenet-tag">Continuous R&D</span>
+          </div>
+        </div>
+
+        <!-- Tenet 2: Trust -->
+        <div class="tenet-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="tenet-icon-holder">
+            <span class="material-symbols-outlined tenet-symbol">handshake</span>
+          </div>
+          <h3 class="tenet-title">Trust & Discretion</h3>
+          <p class="tenet-desc">Unwavering integrity, military-grade data confidentiality, and absolute discretion form the bedrock of our long-standing enterprise partnerships.</p>
+          <div class="tenet-footer">
+            <span class="tenet-tag">Bank-Grade Privacy</span>
+          </div>
+        </div>
+
+        <!-- Tenet 3: Quality -->
+        <div class="tenet-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="tenet-icon-holder">
+            <span class="material-symbols-outlined tenet-symbol">diamond</span>
+          </div>
+          <h3 class="tenet-title">Uncompromising Quality</h3>
+          <p class="tenet-desc">An uncompromising commitment to engineering excellence in every line of code, infrastructure tier, and strategic deliverable.</p>
+          <div class="tenet-footer">
+            <span class="tenet-tag">Zero Defect Standard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: Executive Leadership Team (3D Tilt Profiles)
+       ========================================================================= -->
+  <section class="leadership-section" id="leadership-section">
+    <div class="section-container">
+      <div class="section-header animate-on-scroll">
+        <div class="flex-header-between">
+          <div>
+            <span class="section-badge-gold">
+              <span class="badge-dot"></span>
+              GOVERNANCE
+            </span>
+            <h2 class="section-title">Executive Leadership</h2>
+            <p class="section-subtitle">Seasoned industry operators leading digital transformations for global enterprise scale.</p>
+          </div>
+          <div class="leadership-status-tag hidden-mobile">
+            <span class="status-dot"></span>
+            <span>BOARD OF DIRECTORS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="leadership-grid">
+        <!-- Leader 1: Jonathan Sterling -->
+        <div class="leader-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="leader-photo-wrap">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGRkBSfhS8OM3u4oq0qv3qeJ8spXcwy81THVLcMQGRPNlBD1ofHlHHyTkqTu3-0sOWZTLhG4bbWBt25R1jE2vCK4--EUmZRfmgAvpcnanS6TKkHb9WAjgRkZ4oFwv3TX6F57C953fXsr6vvbhggwi6SjAIUqbzmi3Yi6GZMX_ad9U_zA6QH-iDNp-ywpD3T-riIRsFk4FR_B02WIHQIi796NTTtYVeB1yNJqWUMv6eVt_70_msfPfO" 
+                 alt="Jonathan Sterling - Chief Executive Officer" 
+                 class="leader-photo"
+                 loading="lazy">
+            <div class="leader-glow-overlay"></div>
+          </div>
+          <div class="leader-details">
+            <h3 class="leader-name">Jonathan Sterling</h3>
+            <span class="leader-role">Chief Executive Officer</span>
+            <p class="leader-bio">Former VP of Strategy at multinational consultancy, driving 20+ years of high-concurrency enterprise growth.</p>
+            <div class="leader-socials">
+              <span class="executive-credential">M.S. Stanford University</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leader 2: Eleanor Vance -->
+        <div class="leader-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="leader-photo-wrap">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkazF_qbVc2dlNdhrqGI7uPv_rMxOSLx0ov7ZgPkcFaNegRyLmLAvWmyU6aOM5RASsZ-pnbifLf5DUpPbVMQ79DSFr8j57xNn3X3t4JvOKe7ISvBjXabQqWxwsgXmh_HfbnWTPARMXoxUJZwyd1wtdw6ZtNH6aq5hTX_sr0V3viyTZK4A466HEUYJRi7BMlpZ0WiB4In7g-2ksUvqTLW907bKlsv0sG2F3KpJVzFCLh8XhwcR4DuXs" 
+                 alt="Eleanor Vance - Chief Technology Officer" 
+                 class="leader-photo"
+                 loading="lazy">
+            <div class="leader-glow-overlay"></div>
+          </div>
+          <div class="leader-details">
+            <h3 class="leader-name">Eleanor Vance</h3>
+            <span class="leader-role">Chief Technology Officer</span>
+            <p class="leader-bio">Distributed systems pioneer with patents in high-speed consensus and fault-tolerant cloud fabrics.</p>
+            <div class="leader-socials">
+              <span class="executive-credential">Ph.D. Computer Science MIT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leader 3: Marcus Thorne -->
+        <div class="leader-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="leader-photo-wrap">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuTX28NX_cLQ3IrFD90AM1XY1ZTR08IbnPo7c5r_30upgjljs6ODkeT6i0PQJvRA7p-neKwKCTZwXJogGC9IMIxtmxvXQb1x7n3t6P8urEYPh_wDgF3b4-qhJQlGWDq7NtRXovMN9V7wR2BxsNMTudl587kljfRcdVYokEjcNqsR8g6nVUlTdWrtwE9w-K-oEIRmeC0omPAlh4uctgaDnNJJoRAVfn2sel7WatQTkutSl9sc6Al0d1" 
+                 alt="Marcus Thorne - Chief Operating Officer" 
+                 class="leader-photo"
+                 loading="lazy">
+            <div class="leader-glow-overlay"></div>
+          </div>
+          <div class="leader-details">
+            <h3 class="leader-name">Marcus Thorne</h3>
+            <span class="leader-role">Chief Operating Officer</span>
+            <p class="leader-bio">Architect of international operations and global delivery centers spanning North America, Europe, and APAC.</p>
+            <div class="leader-socials">
+              <span class="executive-credential">MBA Harvard Business School</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leader 4: Diana Croft -->
+        <div class="leader-card card-3d animate-on-scroll" data-tilt>
+          <div class="card-glare"></div>
+          <div class="leader-photo-wrap">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTp6TtHTtFHCPBGLHSCtXoZMBmaPivxNAxl5ZKJy-Pbh3MDaueFj8QDnT_WFmARa1GRRb-dZrVmXRD-sTFK40MudvlDe1xbWSxVIF5T55IQ6NmeWzC3fkQOF7xxhM8zoH1AdGuKp1-5V9zdlOvwnR0Agt2e3-jBdE0Uh5836RdsffJ6MS_dHUNFDhv8PSe_1QTzWRaw5EWplF8VxqB-z_TAF_6SSpSwEcAueRlfDvCztjnozU8jkqk" 
+                 alt="Diana Croft - Chief Strategy Officer" 
+                 class="leader-photo"
+                 loading="lazy">
+            <div class="leader-glow-overlay"></div>
+          </div>
+          <div class="leader-details">
+            <h3 class="leader-name">Diana Croft</h3>
+            <span class="leader-role">Chief Strategy Officer</span>
+            <p class="leader-bio">Advisor to enterprise boards on AI adoption, cross-border M&A tech integrations, and market expansion.</p>
+            <div class="leader-socials">
+              <span class="executive-credential">B.S. Economics LSE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 8: MNC Call To Action Section
+       ========================================================================= -->
+  <section class="cta-banner-section" id="cta-section">
+    <div class="cta-ambient-glow"></div>
+    <div class="section-container">
+      <div class="cta-inner-card card-3d animate-on-scroll" data-tilt>
+        <div class="card-glare"></div>
+        <div class="cta-badge-pill">
+          <span class="badge-dot"></span>
+          NEXT GENERATION TRANSFORMATION
+        </div>
+        <h2 class="cta-title">Ready to Scale Your Enterprise?</h2>
+        <p class="cta-desc">
+          Let's discuss how our strategic technology solutions, bespoke engineering, and automated workflows can optimize your operations and drive lasting market leadership.
+        </p>
+        <div class="cta-button-cluster">
+          <button class="cta-gold-btn lg" id="cta-consult-trigger">
+            <span class="material-symbols-outlined text-base">calendar_today</span>
+            <span>Schedule a Consultation</span>
+          </button>
+          <a href="#capabilities-section" class="cta-outline-btn lg">
+            <span>Explore All Capabilities</span>
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </a>
+        </div>
+        <div class="cta-guarantee-row">
+          <span class="guarantee-item"><span class="material-symbols-outlined text-gold text-sm">lock</span> Strict NDA & Confidentiality Guaranteed</span>
+          <span class="guarantee-item"><span class="material-symbols-outlined text-gold text-sm">bolt</span> 24-Hour Executive Response Time</span>
+          <span class="guarantee-item"><span class="material-symbols-outlined text-gold text-sm">verified_user</span> Tier 1 Architecture Standards</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 9: Enterprise Footer (Shared Global MNC Component)
+       ========================================================================= -->
+  <footer class="mnc-footer">
+    <div class="section-container">
+      <div class="footer-top-grid">
+        <!-- Brand Summary -->
+        <div class="footer-brand-col">
+          <a href="#" class="brand-link" aria-label="SG Solutions Home">
+            <img src="./logo.png?v=2" alt="SG Solutions - Spark Growth In A Click" class="brand-logo-img footer-logo">
+          </a>
+          <p class="footer-tagline">Architecting digital excellence, robust cloud fabrics, and enduring competitive advantage for modern global enterprises.</p>
+          <div class="footer-system-status">
+            <span class="status-indicator"></span>
+            <span>All Enterprise Systems Operational (99.99%)</span>
+          </div>
+        </div>
+
+        <!-- Col 1: Solutions -->
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Capabilities</h4>
+          <ul class="footer-links-list">
+            <li><a href="#capabilities-section">Web & Mobile Platforms</a></li>
+            <li><a href="#capabilities-section">Custom Software Engineering</a></li>
+            <li><a href="#capabilities-section">CRM & Data Integration</a></li>
+            <li><a href="#capabilities-section">Performance Marketing</a></li>
+            <li><a href="#capabilities-section">Technical SEO Architecture</a></li>
+            <li><a href="#capabilities-section">Business Process Automation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Direct Channels -->
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Direct Channels</h4>
+          <ul class="footer-links-list">
+            <li><a href="mailto:support@sgsolutions.co.in">support@sgsolutions.co.in</a></li>
+            <li><a href="#open-consult-btn">Schedule Consultation</a></li>
+            <li><a href="#portfolio-section">Enterprise Case Studies</a></li>
+            <li><a href="#gallery-section">Design Gallery</a></li>
+            <li><a href="http://localhost:8000/admin/index.php" target="_blank" class="text-gold">Admin CMS Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Company & Governance -->
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Governance & Privacy</h4>
+          <ul class="footer-links-list">
+            <li><a href="#story-section">About SG Solutions</a></li>
+            <li><a href="#leadership-section">Executive Leadership</a></li>
+            <li><a href="#">Security & ISO 27001</a></li>
+            <li><a href="#">Privacy Policy & GDPR</a></li>
+            <li><a href="#">Terms of Enterprise Service</a></li>
+            <li><a href="#open-consult-btn">Executive Inquiries</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom-row">
+        <div class="copyright-text">
+          © 2026 SG Solutions International LLC. All rights reserved. Registered Enterprise System.
+        </div>
+        <div class="footer-legal-links">
+          <a href="#">Security Statement</a>
+          <span class="sep">•</span>
+          <a href="#">Ethics & Compliance</a>
+          <span class="sep">•</span>
+          <a href="#">Cookie Preferences</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODAL: Interactive Executive Consultation Dialog (3D Glassmorphism)
+       ========================================================================= -->
+  <div class="consult-modal-backdrop" id="consult-modal">
+    <div class="consult-modal-dialog card-3d" data-tilt>
+      <div class="card-glare"></div>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close consultation modal">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <div class="modal-header">
+        <div class="section-badge-gold">
+          <span class="badge-dot"></span>
+          CONFIDENTIAL INQUIRY
+        </div>
+        <h3 class="modal-title">Schedule an Executive Consultation</h3>
+        <p class="modal-subtitle">Direct channel to SG Solutions principal architects. We respond within 24 business hours under mutual NDA protection.</p>
+      </div>
+
+      <form class="consult-form" id="consult-form">
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="consult-name" class="form-label">Full Name *</label>
+            <input type="text" id="consult-name" class="form-input" placeholder="e.g. Eleanor Vance" required>
+          </div>
+          <div class="form-group">
+            <label for="consult-email" class="form-label">Corporate Email *</label>
+            <input type="email" id="consult-email" class="form-input" placeholder="e.g. vance@enterprise.com" required>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="consult-company" class="form-label">Enterprise / Organization *</label>
+            <input type="text" id="consult-company" class="form-input" placeholder="e.g. Global Tech Inc." required>
+          </div>
+          <div class="form-group">
+            <label for="consult-service" class="form-label">Primary Engagement Area</label>
+            <select id="consult-service" class="form-select">
+              <option value="custom-software">Custom Software & Architecture</option>
+              <option value="web-mobile">Web & Mobile Engineering</option>
+              <option value="crm-automation">CRM & Business Automation</option>
+              <option value="marketing-seo">Enterprise Digital Growth & SEO</option>
+              <option value="full-transformation">Comprehensive Transformation</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="consult-message" class="form-label">Project Scope & Strategic Goals</label>
+          <textarea id="consult-message" class="form-textarea" rows="3" placeholder="Briefly describe your objectives, target timeline, or architectural challenges..."></textarea>
+        </div>
+
+        <div class="form-submit-row">
+          <button type="submit" class="cta-gold-btn full-w">
+            <span>Submit Consultation Request</span>
+            <span class="material-symbols-outlined text-sm">send</span>
+          </button>
+        </div>
+
+        <div class="form-privacy-note">
+          <span class="material-symbols-outlined text-xs text-gold">lock</span>
+          <span>Your information is protected by 256-bit encryption and strict enterprise confidentiality protocols.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Interactive Visual Gallery Lightbox
+       ========================================================================= -->
+  <div class="gallery-lightbox-modal" id="gallery-lightbox">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-dialog">
+      <button class="lightbox-close-btn" id="lightbox-close" aria-label="Close Lightbox">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="lightbox-media-wrap">
+        <img src="" id="lightbox-img" class="lightbox-img" alt="Enlarged Architectural Visual">
+      </div>
+      <div class="lightbox-info-bar">
+        <div class="lightbox-badge" id="lightbox-category">Architecture</div>
+        <h4 class="lightbox-title" id="lightbox-title">Title</h4>
+        <p class="lightbox-desc" id="lightbox-desc">Description</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       FLOATING RIGHT-SIDE SOCIAL & DIRECT CONNECT DOCK (PERSISTENT ALL PAGES)
+       ========================================================================= -->
+  <aside class="floating-social-dock" id="floating-social-dock" aria-label="Direct Connect & Social Channels">
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/sgsolutionsdigitalmarketing/" target="_blank" rel="noopener noreferrer" class="social-dock-btn btn-instagram" aria-label="Connect on Instagram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      <span class="social-dock-tooltip">Instagram</span>
+    </a>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/917039533115?text=Hello%2C%20SG%20Solution" target="_blank" rel="noopener noreferrer" class="social-dock-btn btn-whatsapp" aria-label="Chat on WhatsApp">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span class="social-dock-tooltip">WhatsApp</span>
+    </a>
+
+    <!-- Google Business / Corporate Portal -->
+    <a href="https://sgsolutions.co.in/" target="_blank" rel="noopener noreferrer" class="social-dock-btn btn-google" aria-label="SG Solutions Portal & Google Presence">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+        <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.344-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/>
+      </svg>
+      <span class="social-dock-tooltip">Google</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/company/sgsolutionsdigitalmarketing/" target="_blank" rel="noopener noreferrer" class="social-dock-btn btn-linkedin" aria-label="Connect on LinkedIn">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+      </svg>
+      <span class="social-dock-tooltip">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sgsolutionsdigitalmarketing/" target="_blank" rel="noopener noreferrer" class="social-dock-btn btn-facebook" aria-label="Follow on Facebook">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+        <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.688 5H18V0h-3.812C10.5 0 9 1.492 9 4.364V8z"/>
+      </svg>
+      <span class="social-dock-tooltip">Facebook</span>
+    </a>
+  </aside>
+
+  <!-- Global Toast Notification Container -->
+  <div class="toast-container" id="site-toast-container"></div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
