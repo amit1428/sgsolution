@@ -3085,6 +3085,140 @@ section, main, header, footer, .section-container {
   border-left-color: #ef4444;
 }
 
+/* ==========================================================================
+   FLOATING RIGHT-SIDE SOCIAL & DIRECT CONNECT DOCK (BASE / DESKTOP)
+   ========================================================================== */
+.floating-social-dock {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  pointer-events: auto;
+  max-height: 85vh;
+  touch-action: manipulation;
+}
+
+.social-dock-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, filter 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+
+.social-dock-btn svg {
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.social-dock-btn:hover {
+  transform: scale(1.15) translateX(-4px);
+  filter: brightness(1.08);
+}
+
+.social-dock-btn:active {
+  transform: scale(0.96) translateX(-2px);
+}
+
+/* Brand Palette & Ambient Glows */
+.social-dock-btn.btn-instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  box-shadow: 0 4px 14px rgba(214, 36, 159, 0.35);
+}
+.social-dock-btn.btn-instagram:hover {
+  box-shadow: 0 6px 20px rgba(214, 36, 159, 0.6);
+}
+
+.social-dock-btn.btn-whatsapp {
+  background: #25D366;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.38);
+}
+.social-dock-btn.btn-whatsapp:hover {
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.65);
+}
+
+.social-dock-btn.btn-google {
+  background: #EA4335;
+  box-shadow: 0 4px 14px rgba(234, 67, 53, 0.38);
+}
+.social-dock-btn.btn-google:hover {
+  box-shadow: 0 6px 20px rgba(234, 67, 53, 0.65);
+}
+
+.social-dock-btn.btn-linkedin {
+  background: #0077B5;
+  box-shadow: 0 4px 14px rgba(0, 119, 181, 0.38);
+}
+.social-dock-btn.btn-linkedin:hover {
+  box-shadow: 0 6px 20px rgba(0, 119, 181, 0.65);
+}
+
+.social-dock-btn.btn-facebook {
+  background: #1877F2;
+  box-shadow: 0 4px 14px rgba(24, 119, 242, 0.38);
+}
+.social-dock-btn.btn-facebook:hover {
+  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.65);
+}
+
+/* Tooltip on Desktop Hover */
+.social-dock-tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: rgba(13, 31, 26, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 5px 12px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(190, 146, 56, 0.35);
+}
+
+.social-dock-tooltip::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(13, 31, 26, 0.95);
+}
+
+.social-dock-btn:hover .social-dock-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
 /* --------------------------------------------------------------------------
    Responsive Media Queries — MNC Executive Standard
    -------------------------------------------------------------------------- */
@@ -3150,6 +3284,15 @@ section, main, header, footer, .section-container {
   .care-banner-right {
     align-items: flex-start;
     width: 100%;
+  }
+
+  .floating-social-dock {
+    right: 12px;
+    gap: 9px;
+  }
+  .social-dock-btn {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -3369,22 +3512,30 @@ section, main, header, footer, .section-container {
 
   /* Floating Social Dock on Mobile */
   .floating-social-dock {
-    right: 6px;
-    gap: 6px;
-    z-index: 999;
-    transform: translateY(-50%) scale(0.85);
-    transform-origin: right center;
+    right: 8px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    gap: 7px !important;
+    z-index: 999 !important;
   }
 
   .social-dock-btn {
-    width: 34px !important;
-    height: 34px !important;
+    width: 36px !important;
+    height: 36px !important;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22) !important;
   }
 
+  .social-dock-btn:hover {
+    transform: none !important;
+  }
+
+  .social-dock-btn:active {
+    transform: scale(0.92) !important;
+  }
+
   .social-dock-btn svg {
-    width: 16px !important;
-    height: 16px !important;
+    width: 17px !important;
+    height: 17px !important;
   }
 
   .social-dock-tooltip {
@@ -3427,136 +3578,26 @@ section, main, header, footer, .section-container {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
   }
-}
 
-/* ==========================================================================
-   FLOATING RIGHT-SIDE SOCIAL & DIRECT CONNECT DOCK (DESKTOP DEFAULT)
-   ========================================================================== */
-.floating-social-dock {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  pointer-events: auto;
-}
+  /* Extra compact floating dock for small phone screens (320px - 480px) */
+  .floating-social-dock {
+    right: 6px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    gap: 6px !important;
+    z-index: 999 !important;
+  }
 
-.social-dock-btn {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, filter 0.2s ease;
-  user-select: none;
-  -webkit-user-select: none;
-}
+  .social-dock-btn {
+    width: 33px !important;
+    height: 33px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24) !important;
+  }
 
-.social-dock-btn svg {
-  display: block;
-  transition: transform 0.25s ease;
-}
-
-.social-dock-btn:hover {
-  transform: scale(1.15) translateX(-4px);
-  filter: brightness(1.08);
-}
-
-.social-dock-btn:active {
-  transform: scale(0.96) translateX(-2px);
-}
-
-/* Brand Palette & Ambient Glows */
-.social-dock-btn.btn-instagram {
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  box-shadow: 0 4px 14px rgba(214, 36, 159, 0.35);
-}
-.social-dock-btn.btn-instagram:hover {
-  box-shadow: 0 6px 20px rgba(214, 36, 159, 0.6);
-}
-
-.social-dock-btn.btn-whatsapp {
-  background: #25D366;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.38);
-}
-.social-dock-btn.btn-whatsapp:hover {
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.65);
-}
-
-.social-dock-btn.btn-google {
-  background: #EA4335;
-  box-shadow: 0 4px 14px rgba(234, 67, 53, 0.38);
-}
-.social-dock-btn.btn-google:hover {
-  box-shadow: 0 6px 20px rgba(234, 67, 53, 0.65);
-}
-
-.social-dock-btn.btn-linkedin {
-  background: #0077B5;
-  box-shadow: 0 4px 14px rgba(0, 119, 181, 0.38);
-}
-.social-dock-btn.btn-linkedin:hover {
-  box-shadow: 0 6px 20px rgba(0, 119, 181, 0.65);
-}
-
-.social-dock-btn.btn-facebook {
-  background: #1877F2;
-  box-shadow: 0 4px 14px rgba(24, 119, 242, 0.38);
-}
-.social-dock-btn.btn-facebook:hover {
-  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.65);
-}
-
-/* Tooltip on Desktop Hover */
-.social-dock-tooltip {
-  position: absolute;
-  right: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%) translateX(6px);
-  background: rgba(13, 31, 26, 0.95);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffffff;
-  padding: 5px 12px;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  border-radius: 6px;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(190, 146, 56, 0.35);
-}
-
-.social-dock-tooltip::after {
-  content: '';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent rgba(13, 31, 26, 0.95);
-}
-
-.social-dock-btn:hover .social-dock-tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(-50%) translateX(0);
+  .social-dock-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
 }
 
 
