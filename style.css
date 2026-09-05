@@ -2534,19 +2534,274 @@ section, main, header, footer, .section-container {
   margin-top: 6px;
 }
 
-/* --------------------------------------------------------------------------
-   Scroll Animation Triggers (Framer Motion / InView Fallbacks)
-   -------------------------------------------------------------------------- */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+/* ==========================================================================
+   MNC CINEMATIC VIEW TRANSITIONS (Cross-Document & Navigation API)
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
 }
 
+::view-transition-old(root) {
+  animation: 0.38s cubic-bezier(0.16, 1, 0.3, 1) both mncCinematicViewOut;
+}
+
+::view-transition-new(root) {
+  animation: 0.46s cubic-bezier(0.16, 1, 0.3, 1) both mncCinematicViewIn;
+}
+
+@keyframes mncCinematicViewOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.96) translateY(-12px);
+    filter: blur(6px);
+  }
+}
+
+@keyframes mncCinematicViewIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.04) translateY(18px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MNC LEVEL CINEMATIC SCROLL MOTION & FRAMER-MOTION PHYSICS SYSTEM
+   -------------------------------------------------------------------------- */
+
+/* Base GPU Compositing Optimization */
+.motion-cut-in,
+.motion-cut-left,
+.motion-cut-right,
+.motion-zoom-in,
+.motion-zoom-out,
+.motion-fade-slide-up,
+.motion-card,
+.animate-on-scroll {
+  will-change: opacity, transform, clip-path;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* 1. Motion Cut-In: Geometric Shutter Clip-Path & Spatial Glide */
+.motion-cut-in {
+  opacity: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  transform: translateY(36px) scale(0.96);
+  transition: 
+    clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motion-cut-in.is-inview,
+.animate-on-scroll.in-view .motion-cut-in {
+  opacity: 1;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  transform: translateY(0) scale(1);
+}
+
+/* 2. Motion Cut-Left: Side Diagonal Shutter */
+.motion-cut-left {
+  opacity: 0;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transform: translateX(-32px) scale(0.97);
+  transition: 
+    clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motion-cut-left.is-inview {
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transform: translateX(0) scale(1);
+}
+
+/* 3. Motion Cut-Right: Reverse Diagonal Shutter */
+.motion-cut-right {
+  opacity: 0;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  transform: translateX(32px) scale(0.97);
+  transition: 
+    clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motion-cut-right.is-inview {
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transform: translateX(0) scale(1);
+}
+
+/* 4. Motion Zoom-In: Cinematic Scale Expansion & Luminous Bloom */
+.motion-zoom-in {
+  opacity: 0;
+  transform: scale(0.91) translateY(24px);
+  filter: blur(3px);
+  transition: 
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motion-zoom-in.is-inview,
+.animate-on-scroll.in-view .motion-zoom-in {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0px);
+}
+
+/* 5. Motion Fade & Smooth Slide Up */
+.motion-fade-slide-up,
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: 
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motion-fade-slide-up.is-inview,
 .animate-on-scroll.in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* 6. Card Stagger Cascade (Framer Motion Stagger Children) */
+.motion-stagger-group .motion-card {
+  opacity: 0;
+  transform: translateY(28px) scale(0.95);
+  transition: 
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease;
+}
+
+.motion-stagger-group.is-inview .motion-card,
+.animate-on-scroll.in-view.motion-stagger-group .motion-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger Delay Offsets */
+.motion-stagger-group.is-inview .motion-card:nth-child(1),
+.animate-on-scroll.in-view .motion-card:nth-child(1),
+.motion-stagger-1 {
+  transition-delay: 50ms !important;
+}
+
+.motion-stagger-group.is-inview .motion-card:nth-child(2),
+.animate-on-scroll.in-view .motion-card:nth-child(2),
+.motion-stagger-2 {
+  transition-delay: 110ms !important;
+}
+
+.motion-stagger-group.is-inview .motion-card:nth-child(3),
+.animate-on-scroll.in-view .motion-card:nth-child(3),
+.motion-stagger-3 {
+  transition-delay: 170ms !important;
+}
+
+.motion-stagger-group.is-inview .motion-card:nth-child(4),
+.animate-on-scroll.in-view .motion-card:nth-child(4),
+.motion-stagger-4 {
+  transition-delay: 230ms !important;
+}
+
+.motion-stagger-group.is-inview .motion-card:nth-child(5),
+.animate-on-scroll.in-view .motion-card:nth-child(5),
+.motion-stagger-5 {
+  transition-delay: 290ms !important;
+}
+
+.motion-stagger-group.is-inview .motion-card:nth-child(6),
+.animate-on-scroll.in-view .motion-card:nth-child(6),
+.motion-stagger-6 {
+  transition-delay: 350ms !important;
+}
+
+/* 7. Specular Sheen Sweep on In-View */
+.card-3d.is-inview .card-glare {
+  animation: glareSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes glareSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) rotate(25deg);
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) rotate(25deg);
+  }
+}
+
+/* Mobile Responsiveness for Motion (Ensures buttery 60fps on phones) */
+@media (max-width: 768px) {
+  .motion-cut-in,
+  .motion-cut-left,
+  .motion-cut-right {
+    clip-path: none !important; /* Avoid clip-path raster overhead on lower-end mobile GPUs */
+    transform: translateY(22px) scale(0.97);
+  }
+
+  .motion-cut-in.is-inview,
+  .motion-cut-left.is-inview,
+  .motion-cut-right.is-inview {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .motion-zoom-in {
+    filter: none !important;
+    transform: scale(0.95) translateY(18px);
+  }
+
+  .motion-zoom-in.is-inview {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .motion-cut-in,
+  .motion-cut-left,
+  .motion-cut-right,
+  .motion-zoom-in,
+  .motion-fade-slide-up,
+  .motion-card,
+  .animate-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
 }
 
 /* --------------------------------------------------------------------------

@@ -184,25 +184,98 @@ if (cursorSpotlight) {
 }
 
 /* ==========================================================================
-   Modern IntersectionObserver Scroll Reveal Engine
+   MNC Cinematic Motion Engine (Framer Motion Physics & Viewport Tracker)
    ========================================================================== */
+let globalMotionObserver = null;
+
 function initMotionReveals() {
-  const scrollElements = document.querySelectorAll('.animate-on-scroll');
+  const motionSelectors = [
+    '.animate-on-scroll',
+    '.motion-cut-in',
+    '.motion-cut-left',
+    '.motion-cut-right',
+    '.motion-zoom-in',
+    '.motion-fade-slide-up',
+    '.motion-stagger-group',
+    '[data-motion]'
+  ].join(', ');
+
+  const elements = document.querySelectorAll(motionSelectors);
   
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
+    if (globalMotionObserver) {
+      globalMotionObserver.disconnect();
+    }
+
+    globalMotionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
+          const el = entry.target;
+          el.classList.add('in-view', 'is-inview');
+          
+          // If this is a 3D tilt card, trigger specular glare sweep
+          if (el.classList.contains('card-3d')) {
+            const glare = el.querySelector('.card-glare');
+            if (glare) {
+              glare.style.opacity = '0.35';
+              setTimeout(() => { glare.style.opacity = ''; }, 1200);
+            }
+          }
+
+          globalMotionObserver.unobserve(el);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { 
+      threshold: 0.08, 
+      rootMargin: '0px 0px -30px 0px' 
+    });
 
-    scrollElements.forEach(el => observer.observe(el));
+    elements.forEach(el => globalMotionObserver.observe(el));
   } else {
-    scrollElements.forEach(el => el.classList.add('in-view'));
+    elements.forEach(el => el.classList.add('in-view', 'is-inview'));
   }
+
+  initCinematicNavigation();
+}
+
+function observeNewCards(parent) {
+  if (!parent) return;
+  const elements = parent.querySelectorAll('.animate-on-scroll, .motion-cut-in, .motion-zoom-in, .motion-card, [data-motion]');
+  
+  if (globalMotionObserver) {
+    elements.forEach(el => globalMotionObserver.observe(el));
+  } else {
+    elements.forEach(el => el.classList.add('in-view', 'is-inview'));
+  }
+
+  // Re-bind 3D tilt physics to any dynamically rendered cards
+  init3DTiltPhysics();
+}
+
+/* Smooth Cinematic View Transitions on Link Clicks */
+function initCinematicNavigation() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.hasAttribute('data-motion-bound')) return;
+    anchor.setAttribute('data-motion-bound', 'true');
+
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        playSound('tick');
+
+        if (document.startViewTransition) {
+          document.startViewTransition(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          });
+        } else {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
 }
 
 /* ==========================================================================
@@ -620,20 +693,6 @@ function renderTestimonials() {
   `).join('');
 
   observeNewCards(container);
-}
-
-function observeNewCards(parent) {
-  const elements = parent.querySelectorAll('.animate-on-scroll');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  elements.forEach(el => observer.observe(el));
 }
 
 // Category Filters for Projects & Gallery
