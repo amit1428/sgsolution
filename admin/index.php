@@ -399,6 +399,18 @@ $adminUser = $_SESSION['sg_admin_username'] ?? 'admin';
         </div>
 
         <div class="form-group">
+          <label class="form-label" for="proj-live-link">
+            <span>Live Website / Project URL</span>
+            <span class="text-xs text-gold" style="font-weight: 600; margin-left: 6px;">(Opens in new tab for visitors)</span>
+          </label>
+          <div style="position: relative;">
+            <input type="url" id="proj-live-link" class="form-input" placeholder="https://yourwebsite.com" style="padding-left: 40px;">
+            <span class="material-symbols-outlined" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 19px; color: var(--gold, #ffd15c); pointer-events: none;">open_in_new</span>
+          </div>
+          <small class="text-xs text-muted" style="display: block; margin-top: 5px;">When visitors click the project link or &quot;Visit Live Website&quot; button, it will launch this URL in a new tab.</small>
+        </div>
+
+        <div class="form-group">
           <label class="form-label" for="proj-desc">Executive Summary / Description *</label>
           <textarea id="proj-desc" class="form-textarea" rows="3" required placeholder="Describe the mission-critical challenges and engineering results achieved..."></textarea>
         </div>
@@ -594,6 +606,6 @@ $adminUser = $_SESSION['sg_admin_username'] ?? 'admin';
     </div>
   </div>
 
-  <script src="./admin.js"></script>
+  <script src="./admin.js?v=4.0"></script>
 </body>
 </html>

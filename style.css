@@ -3122,6 +3122,191 @@ section, main, header, footer, .section-container {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
+/* MNC Luxury Live Website Button & Indicators */
+.project-card-footer.dual-action {
+  display: flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.project-live-btn {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex: 1 1 auto !important;
+  padding: 10px 16px !important;
+  background: linear-gradient(135deg, #00281b 0%, #004d35 100%) !important;
+  color: #ffd15c !important;
+  font-family: var(--font-mono, 'Space Grotesk', sans-serif) !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  border: 1.5px solid #ffd15c !important;
+  border-radius: 9999px !important;
+  cursor: pointer !important;
+  outline: none !important;
+  box-shadow: 0 4px 14px rgba(0, 42, 29, 0.22) !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+}
+
+.project-live-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 209, 92, 0.35), transparent);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.project-live-btn:hover::before {
+  left: 120%;
+}
+
+.project-live-btn:hover {
+  background: linear-gradient(135deg, #ffd15c 0%, #be9238 100%) !important;
+  color: #001f15 !important;
+  border-color: #ffd15c !important;
+  box-shadow: 0 8px 24px rgba(190, 146, 56, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+.project-live-btn .project-btn-icon-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 209, 92, 0.15) !important;
+  color: #ffd15c !important;
+  border: 1px solid rgba(255, 209, 92, 0.4) !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  margin-left: 6px !important;
+  flex-shrink: 0 !important;
+}
+
+.project-live-btn .project-btn-icon-wrap .material-symbols-outlined {
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+.project-live-btn:hover .project-btn-icon-wrap {
+  background: #001f15 !important;
+  color: #ffd15c !important;
+  border-color: #001f15 !important;
+  transform: translateX(2px) translateY(-1px) !important;
+}
+
+.project-view-btn.outline-sm {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  padding: 10px 14px !important;
+  font-size: 0.78rem !important;
+  background: #f8faf9 !important;
+  border-color: rgba(0, 42, 29, 0.35) !important;
+}
+
+.project-view-btn.outline-sm .project-btn-icon-wrap {
+  width: 24px !important;
+  height: 24px !important;
+  margin-left: 6px !important;
+}
+
+.project-view-btn.outline-sm .project-btn-icon-wrap .material-symbols-outlined {
+  font-size: 13px !important;
+}
+
+.project-image-live-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  text-decoration: none !important;
+  z-index: 3;
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(0, 30, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 209, 92, 0.45);
+  border-radius: 20px;
+  color: #ffd15c;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+
+.project-image-live-overlay:hover .live-pill {
+  background: #ffd15c;
+  color: #001f15;
+  border-color: #ffd15c;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(255, 209, 92, 0.45);
+}
+
+.live-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  display: inline-block;
+  animation: liveDotPulse 2s infinite ease-in-out;
+}
+
+@keyframes liveDotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.7;
+  }
+}
+
+.project-title-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.project-title-link:hover {
+  color: #0d6e50;
+}
+
+.title-link-icon {
+  font-size: 16px !important;
+  color: #be9238;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+}
+
+.project-card:hover .title-link-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* Dynamic Visual Gallery Grid */
 .gallery-showcase-grid {
   display: grid;

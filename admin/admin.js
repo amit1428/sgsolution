@@ -182,20 +182,30 @@ async function loadProjects() {
         tbody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-muted">No projects found in database. Click "Add New Project" to get started.</td></tr>';
         return;
       }
-      tbody.innerHTML = data.data.map(p => `
+      tbody.innerHTML = data.data.map(p => {
+        const hasLiveLink = p.live_link && p.live_link !== '#' && p.live_link !== '';
+        return `
         <tr>
           <td>
-            <img src="${p.image_url || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200'}" class="table-thumb" alt="${escapeHtml(p.title)}">
+            <img src="${formatAdminImageUrl(p.image_url) || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200'}" class="table-thumb" alt="${escapeHtml(p.title)}" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200'">
           </td>
           <td>
             <strong>${escapeHtml(p.title)}</strong>
             <p class="text-xs text-muted" style="max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(p.description)}</p>
           </td>
           <td><span class="badge-tag">${escapeHtml(p.category)}</span></td>
-          <td>${escapeHtml(p.client || 'Enterprise')}</td>
+          <td>
+            ${escapeHtml(p.client || 'Enterprise')}
+            ${hasLiveLink ? `<br><a href="${escapeHtml(p.live_link)}" target="_blank" rel="noopener noreferrer" class="text-xs text-gold" style="display: inline-flex; align-items: center; gap: 3px; text-decoration: none; margin-top: 2px;"><span>Live Site</span><span class="material-symbols-outlined" style="font-size: 13px;">open_in_new</span></a>` : ''}
+          </td>
           <td><small class="text-muted">${escapeHtml(p.tech_stack || '-')}</small></td>
           <td style="text-align: right;">
             <div class="row-actions">
+              ${hasLiveLink ? `
+                <a href="${escapeHtml(p.live_link)}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="View Live Website in New Tab">
+                  <span class="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              ` : ''}
               <button class="btn-icon" title="Edit" onclick="editProject(${JSON.stringify(p).replace(/"/g, '&quot;')})">
                 <span class="material-symbols-outlined text-sm">edit</span>
               </button>
@@ -205,7 +215,8 @@ async function loadProjects() {
             </div>
           </td>
         </tr>
-      `).join('');
+      `;
+      }).join('');
     }
   } catch (err) {
     tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 text-danger">Failed to load projects.</td></tr>';
@@ -229,7 +240,7 @@ async function loadGallery() {
       grid.innerHTML = data.data.map(g => `
         <div class="gallery-card-admin">
           <div class="gallery-img-box">
-            <img src="${g.image_url}" alt="${escapeHtml(g.title)}" class="gallery-img">
+            <img src="${formatAdminImageUrl(g.image_url)}" alt="${escapeHtml(g.title)}" class="gallery-img">
             <span class="gallery-badge">${escapeHtml(g.category)}</span>
           </div>
           <div class="gallery-info-box">
@@ -410,6 +421,13 @@ async function updateLeadStatus(id, status) {
   }
 }
 
+function formatAdminImageUrl(url) {
+  if (!url) return '';
+  if (url.startsWith('./uploads/')) return '../' + url.slice(2);
+  if (url.startsWith('uploads/')) return '../' + url;
+  return url;
+}
+
 /* ==========================================================================
    Modals & Image Upload Handlers
    ========================================================================== */
@@ -421,6 +439,9 @@ function initModals() {
       editingItemId = null;
       document.getElementById('project-form').reset();
       document.getElementById('proj-id').value = '';
+      if (document.getElementById('proj-live-link')) {
+        document.getElementById('proj-live-link').value = '';
+      }
       document.getElementById('project-modal-title').textContent = 'Add New Project';
       setImgPreview('proj-preview-img', '');
       openModal('project-modal');
@@ -451,7 +472,7 @@ function initModals() {
     });
   }
 
-  // Modal Closers
+  // Close buttons with data-close-modal
   document.querySelectorAll('[data-close-modal]').forEach(btn => {
     btn.addEventListener('click', () => {
       const modalId = btn.getAttribute('data-close-modal');
@@ -505,6 +526,12 @@ window.editProject = function(p) {
   document.getElementById('proj-client').value = p.client || '';
   document.getElementById('proj-year').value = p.year || '2025';
   document.getElementById('proj-tech').value = p.tech_stack || p.technologies || '';
+  
+  const liveLinkInput = document.getElementById('proj-live-link');
+  if (liveLinkInput) {
+    liveLinkInput.value = (p.live_link && p.live_link !== '#') ? p.live_link : '';
+  }
+
   document.getElementById('proj-desc').value = p.description || '';
   document.getElementById('proj-image-url').value = p.image_url || '';
   setImgPreview('proj-preview-img', p.image_url || '');
@@ -605,35 +632,43 @@ function setupFileUpload(triggerId, fileInputId, urlInputId, previewImgId) {
   const urlInput = document.getElementById(urlInputId);
 
   if (trigger && fileInput) {
-    trigger.addEventListener('click', () => fileInput.click());
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      fileInput.click();
+    });
+
     fileInput.addEventListener('change', async () => {
-      if (fileInput.files.length === 0) return;
+      if (!fileInput.files || fileInput.files.length === 0) return;
       const file = fileInput.files[0];
       const formData = new FormData();
+      formData.append('file', file);
       formData.append('image', file);
 
       trigger.disabled = true;
+      const originalHtml = trigger.innerHTML;
       trigger.innerHTML = '<span class="material-symbols-outlined text-sm fa-spin">progress_activity</span><span>Uploading...</span>';
 
       try {
         const res = await fetch(UPLOAD_BASE, {
           method: 'POST',
+          credentials: 'same-origin',
           body: formData
         });
         const data = await res.json();
         if (data.status === 'success' || data.success) {
           const uploadedUrl = data.url || data.image_url;
           if (urlInput) urlInput.value = uploadedUrl;
-          setImgPreview(previewImgId, uploadedUrl);
-          showToast('Image uploaded successfully.');
+          setImgPreview(previewImgId, data.admin_preview_url || uploadedUrl);
+          showToast('Image uploaded successfully from device.');
         } else {
           showToast(data.message || data.error || 'Upload failed', 'error');
         }
       } catch (err) {
-        showToast('Network error uploading image', 'error');
+        showToast('Network error uploading image. Check connection.', 'error');
       } finally {
         trigger.disabled = false;
-        trigger.innerHTML = '<span class="material-symbols-outlined text-sm">upload</span><span>Upload From Device</span>';
+        trigger.innerHTML = originalHtml;
+        fileInput.value = '';
       }
     });
   }
@@ -650,7 +685,7 @@ function setImgPreview(previewId, url) {
   const img = document.getElementById(previewId);
   if (!img) return;
   if (url) {
-    img.src = url;
+    img.src = formatAdminImageUrl(url);
     img.style.display = 'block';
     const placeholder = img.nextElementSibling;
     if (placeholder && placeholder.classList.contains('preview-placeholder-text')) {
@@ -674,6 +709,12 @@ function initFormHandlers() {
     projForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const id = document.getElementById('proj-id').value;
+      const rawLive = (document.getElementById('proj-live-link')?.value || '').trim();
+      let liveUrl = rawLive;
+      if (liveUrl && !liveUrl.startsWith('http://') && !liveUrl.startsWith('https://') && liveUrl !== '#') {
+        liveUrl = 'https://' + liveUrl;
+      }
+
       const payload = {
         id: id ? parseInt(id) : null,
         title: document.getElementById('proj-title').value.trim(),
@@ -681,9 +722,9 @@ function initFormHandlers() {
         client: document.getElementById('proj-client').value.trim(),
         year: document.getElementById('proj-year').value.trim() || '2025',
         tech_stack: document.getElementById('proj-tech').value.trim(),
+        live_link: liveUrl || '#',
         description: document.getElementById('proj-desc').value.trim(),
         image_url: document.getElementById('proj-image-url').value.trim() || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
-        live_link: '#',
         featured: 1,
         sort_order: 0
       };

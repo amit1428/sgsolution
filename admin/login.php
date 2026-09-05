@@ -2,7 +2,6 @@
 /**
  * SG Solutions — Executive CMS Login
  */
-session_start();
 require_once dirname(__DIR__) . '/backend/auth.php';
 
 $error = '';

@@ -639,29 +639,72 @@ function renderProjects(filter = 'all') {
     const techStr = p.tech_stack || p.technologies || '';
     const techArray = techStr.split(',').map(t => t.trim()).filter(Boolean);
     const isFeatured = p.featured == 1 || p.is_featured == 1;
+
+    // Resolve live link
+    const rawLink = (p.live_link || '').trim();
+    const hasLiveLink = rawLink && rawLink !== '#' && rawLink !== '';
+    const liveUrl = hasLiveLink ? (rawLink.startsWith('http://') || rawLink.startsWith('https://') ? rawLink : 'https://' + rawLink) : '';
+
+    // Normalize image URL
+    let imgUrl = p.image_url || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800';
+    if (imgUrl.startsWith('./uploads/')) {
+      imgUrl = imgUrl.slice(2);
+    }
+
     return `
       <article class="project-card animate-on-scroll">
         <div class="project-card-image-wrap">
-          <img src="${p.image_url || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800'}" alt="${p.title}" class="project-card-image" loading="lazy">
-          <span class="project-category-badge">${p.category || 'Websites'}</span>
+          <img src="${imgUrl}" alt="${escapeHtml(p.title)}" class="project-card-image" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800'">
+          <span class="project-category-badge">${escapeHtml(p.category || 'Websites')}</span>
           ${isFeatured ? '<span class="project-featured-badge">Featured Case Study</span>' : ''}
+          ${hasLiveLink ? `
+            <a href="${escapeHtml(liveUrl)}" target="_blank" rel="noopener noreferrer" class="project-image-live-overlay" title="Launch ${escapeHtml(p.title)} in a new tab">
+              <span class="live-pill">
+                <span class="live-indicator-dot"></span>
+                <span>Live Site</span>
+                <span class="material-symbols-outlined" style="font-size: 14px;">open_in_new</span>
+              </span>
+            </a>
+          ` : ''}
         </div>
         <div class="project-card-body">
-          <span class="project-client-name">${p.client || 'SG Enterprise Client'}</span>
-          <h3 class="project-card-title">${p.title}</h3>
-          <p class="project-card-desc">${p.description || 'Custom software architecture and digital scaling platform.'}</p>
+          <span class="project-client-name">${escapeHtml(p.client || 'SG Enterprise Client')}</span>
+          <h3 class="project-card-title">
+            ${hasLiveLink ? `
+              <a href="${escapeHtml(liveUrl)}" target="_blank" rel="noopener noreferrer" class="project-title-link" title="Open ${escapeHtml(p.title)} in new tab">
+                <span>${escapeHtml(p.title)}</span>
+                <span class="material-symbols-outlined title-link-icon">open_in_new</span>
+              </a>
+            ` : escapeHtml(p.title)}
+          </h3>
+          <p class="project-card-desc">${escapeHtml(p.description || 'Custom software architecture and digital scaling platform.')}</p>
           ${techArray.length > 0 ? `
             <div class="project-tech-tags">
-              ${techArray.map(t => `<span class="project-tech-tag">${t}</span>`).join('')}
+              ${techArray.map(t => `<span class="project-tech-tag">${escapeHtml(t)}</span>`).join('')}
             </div>
           ` : ''}
-          <div class="project-card-footer">
-            <button class="project-view-btn" onclick="openConsultationForProject('${encodeURIComponent(p.title)}')">
-              <span>Request System Brief</span>
-              <span class="project-btn-icon-wrap">
-                <span class="material-symbols-outlined">arrow_forward</span>
-              </span>
-            </button>
+          <div class="project-card-footer ${hasLiveLink ? 'dual-action' : ''}">
+            ${hasLiveLink ? `
+              <a href="${escapeHtml(liveUrl)}" target="_blank" rel="noopener noreferrer" class="project-live-btn" title="Launch ${escapeHtml(p.title)} in a new tab">
+                <span>Visit Live Site</span>
+                <span class="project-btn-icon-wrap">
+                  <span class="material-symbols-outlined">open_in_new</span>
+                </span>
+              </a>
+              <button class="project-view-btn outline-sm" onclick="openConsultationForProject('${encodeURIComponent(p.title)}')" title="Request Architectural System Brief">
+                <span>Brief</span>
+                <span class="project-btn-icon-wrap">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </span>
+              </button>
+            ` : `
+              <button class="project-view-btn" onclick="openConsultationForProject('${encodeURIComponent(p.title)}')">
+                <span>Request System Brief</span>
+                <span class="project-btn-icon-wrap">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </span>
+              </button>
+            `}
           </div>
         </div>
       </article>
@@ -1086,6 +1129,16 @@ function init() {
   initMetricCounters();
   initCategoryFilter();
   fetchSiteData();
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 // Start application

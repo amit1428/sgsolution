@@ -4,6 +4,16 @@
  */
 
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_path', '/');
+    if (PHP_VERSION_ID >= 70300) {
+        session_set_cookie_params([
+            'path' => '/',
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ]);
+    } else {
+        session_set_cookie_params(0, '/', '', false, true);
+    }
     session_start();
 }
 
