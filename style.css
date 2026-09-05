@@ -3982,6 +3982,10 @@ section, main, header, footer, .section-container {
     width: 16px !important;
     height: 16px !important;
   }
+
+  .desktop-only-link {
+    display: none !important;
+  }
 }
 
 
