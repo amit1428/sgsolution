@@ -1160,7 +1160,7 @@ section, main, header, footer, .section-container {
   gap: 8px;
   padding: 8px 14px;
   border-radius: 14px;
-  color: #ffffff;
+  color: #ffffff !important;
   font-size: 0.8rem;
   font-weight: 700;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -1168,17 +1168,21 @@ section, main, header, footer, .section-container {
   cursor: default;
 }
 
+.cluster-badge span {
+  color: #ffffff !important;
+}
+
 .cluster-badge:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
 }
 
-.badge-web { background: linear-gradient(135deg, #0d6e50, #059669); }
-.badge-mobile { background: linear-gradient(135deg, #4f46e5, #6366f1); }
-.badge-software { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-.badge-crm { background: linear-gradient(135deg, #be9238, #d4a742); }
-.badge-marketing { background: linear-gradient(135deg, #e11d48, #f43f5e); }
-.badge-seo { background: linear-gradient(135deg, #0284c7, #38bdf8); }
+.badge-web { background: linear-gradient(135deg, #0d6e50, #059669) !important; }
+.badge-mobile { background: linear-gradient(135deg, #4f46e5, #6366f1) !important; }
+.badge-software { background: linear-gradient(135deg, #7c3aed, #9333ea) !important; }
+.badge-crm { background: linear-gradient(135deg, #be9238, #d4a742) !important; }
+.badge-marketing { background: linear-gradient(135deg, #e11d48, #f43f5e) !important; }
+.badge-seo { background: linear-gradient(135deg, #0284c7, #38bdf8) !important; }
 
 .suite-action-group {
   display: flex;
