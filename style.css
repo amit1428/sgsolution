@@ -3030,29 +3030,29 @@ section, main, header, footer, .section-container {
 }
 
 .project-view-btn {
-  appearance: none;
-  -webkit-appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 11px 18px;
-  background: linear-gradient(135deg, #00281b 0%, #01432f 100%);
-  color: #ffffff;
-  font-family: var(--font-mono, 'Space Grotesk', sans-serif);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  border: 1px solid rgba(190, 146, 56, 0.32);
-  border-radius: var(--radius-full, 9999px);
-  cursor: pointer;
-  outline: none;
-  box-shadow: 0 4px 14px rgba(0, 40, 27, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  padding: 11px 20px !important;
+  background: #ffffff !important;
+  color: #002a1d !important;
+  font-family: var(--font-mono, 'Space Grotesk', sans-serif) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  border: 1.5px solid #002a1d !important;
+  border-radius: 9999px !important;
+  cursor: pointer !important;
+  outline: none !important;
+  box-shadow: 0 3px 10px rgba(0, 42, 29, 0.08) !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
 }
 
 .project-view-btn::before {
@@ -3062,7 +3062,7 @@ section, main, header, footer, .section-container {
   left: -120%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  background: linear-gradient(90deg, transparent, rgba(190, 146, 56, 0.2), transparent);
   transition: left 0.55s ease;
   pointer-events: none;
 }
@@ -3072,43 +3072,43 @@ section, main, header, footer, .section-container {
 }
 
 .project-view-btn .project-btn-icon-wrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: rgba(190, 146, 56, 0.25);
-  color: #ffd15c;
-  border: 1px solid rgba(190, 146, 56, 0.45);
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-left: 8px;
-  flex-shrink: 0;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: rgba(0, 42, 29, 0.07) !important;
+  color: #002a1d !important;
+  border: 1.5px solid rgba(0, 42, 29, 0.2) !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  margin-left: 8px !important;
+  flex-shrink: 0 !important;
 }
 
 .project-view-btn .project-btn-icon-wrap .material-symbols-outlined {
-  font-size: 14px;
-  line-height: 1;
+  font-size: 15px !important;
+  line-height: 1 !important;
 }
 
 .project-view-btn:hover {
-  background: linear-gradient(135deg, #be9238 0%, #d4a742 100%);
-  color: #001f15;
-  border-color: #d4a742;
-  box-shadow: 0 8px 22px rgba(190, 146, 56, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #00281b 0%, #01432f 100%) !important;
+  color: #ffffff !important;
+  border-color: #be9238 !important;
+  box-shadow: 0 8px 22px rgba(0, 42, 29, 0.25) !important;
+  transform: translateY(-2px) !important;
 }
 
 .project-view-btn:hover .project-btn-icon-wrap {
-  background: #00281b;
-  color: #ffd15c;
-  border-color: #00281b;
-  transform: translateX(4px);
+  background: #be9238 !important;
+  color: #001f15 !important;
+  border-color: #be9238 !important;
+  transform: translateX(4px) !important;
 }
 
 .project-view-btn:active {
-  transform: translateY(0px) scale(0.98);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(0px) scale(0.98) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Dynamic Visual Gallery Grid */
