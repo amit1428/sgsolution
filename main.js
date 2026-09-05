@@ -4,8 +4,8 @@
    ========================================================================== */
 
 // Auto-route /admin requests to the Executive CMS Login Portal
-if (window.location.pathname.toLowerCase().includes('/admin')) {
-  window.location.href = 'http://localhost:8000/admin/login.php';
+if (window.location.pathname.toLowerCase().endsWith('/admin') || window.location.pathname.toLowerCase().endsWith('/admin/')) {
+  window.location.href = 'admin/index.php';
 }
 
 // Web Audio API - Cybernetic Spatial Sound Generator
@@ -338,9 +338,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Backend API Endpoints
-const API_URL = 'http://localhost:8000/backend/api.php';
-
 // Public Toast Notifications
 function showSiteToast(message, type = 'success') {
   const container = document.getElementById('site-toast-container');
@@ -465,20 +462,22 @@ let siteProjects = [];
 let siteGallery = [];
 let siteTestimonials = [];
 
-// Dynamic Data Hydration from Backend Database (SQLite / MySQL)
+// Dynamic Data Hydration from Backend Database (MySQL / SQLite)
 async function fetchSiteData() {
   try {
-    const res = await fetch(`${API_BASE}?action=get_all`);
+    const res = await fetch(`${API_BASE}?action=get_all`, { cache: 'no-store' });
     const json = await res.json();
     if (json.success && json.data) {
-      siteProjects = (json.data.projects && json.data.projects.length > 0) ? json.data.projects : FALLBACK_PROJECTS;
-      siteGallery = (json.data.gallery && json.data.gallery.length > 0) ? json.data.gallery : FALLBACK_GALLERY;
-      siteTestimonials = (json.data.testimonials && json.data.testimonials.length > 0) ? json.data.testimonials : FALLBACK_TESTIMONIALS;
+      // Live database sync: respect empty database state ([]) without overriding with dummy data
+      siteProjects = Array.isArray(json.data.projects) ? json.data.projects : [];
+      siteGallery = Array.isArray(json.data.gallery) ? json.data.gallery : [];
+      siteTestimonials = Array.isArray(json.data.testimonials) ? json.data.testimonials : [];
     } else {
       throw new Error(json.error || 'API error');
     }
   } catch (err) {
-    console.warn('Backend API unavailable, utilizing fallback seed data:', err);
+    console.warn('Backend API unavailable or network offline:', err);
+    // Only fall back to seed data if server is completely offline / unreachable
     siteProjects = FALLBACK_PROJECTS;
     siteGallery = FALLBACK_GALLERY;
     siteTestimonials = FALLBACK_TESTIMONIALS;
@@ -504,7 +503,7 @@ function renderProjects(filter = 'all') {
     container.innerHTML = `
       <div class="empty-state-box">
         <span class="material-symbols-outlined text-gold">folder_open</span>
-        <span>No projects found in this category.</span>
+        <span>No projects found. Add projects from the Admin CMS to display them live.</span>
       </div>
     `;
     return;
@@ -568,7 +567,7 @@ function renderGallery(filter = 'all') {
     container.innerHTML = `
       <div class="empty-state-box">
         <span class="material-symbols-outlined text-gold">photo_library</span>
-        <span>No gallery items found in this category.</span>
+        <span>No gallery items found. Add items from the Admin CMS to display them live.</span>
       </div>
     `;
     return;
@@ -595,6 +594,16 @@ function renderGallery(filter = 'all') {
 function renderTestimonials() {
   const container = document.getElementById('dynamic-testimonials-grid');
   if (!container) return;
+
+  if (siteTestimonials.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state-box" style="grid-column: 1 / -1;">
+        <span class="material-symbols-outlined text-gold">rate_review</span>
+        <span>No client testimonials published yet. Add reviews from the Admin CMS.</span>
+      </div>
+    `;
+    return;
+  }
 
   container.innerHTML = siteTestimonials.map(t => `
     <article class="testimonial-card animate-on-scroll">

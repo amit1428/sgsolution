@@ -37,7 +37,7 @@ $adminUser = $_SESSION['sg_admin_username'] ?? 'admin';
       <div class="topbar-divider"></div>
       <span class="topbar-badge">
         <span class="badge-pulse"></span>
-        SQLite Connected &bull; Real-Time
+        Database Active &bull; Real-Time Sync
       </span>
     </div>
 
