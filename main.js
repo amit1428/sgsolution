@@ -590,20 +590,38 @@ function renderProjects(filter = 'all') {
   const container = document.getElementById('dynamic-projects-grid');
   if (!container) return;
 
-  const cleanFilter = filter.trim().toLowerCase();
+  const cleanFilter = (filter || 'all').trim().toLowerCase();
   const filtered = cleanFilter === 'all' 
     ? siteProjects 
     : siteProjects.filter(p => {
         if (!p.category) return false;
         const cat = p.category.toLowerCase().trim();
+        const title = (p.title || '').toLowerCase();
+        const desc = (p.description || '').toLowerCase();
+        const tech = (p.tech_stack || p.technologies || '').toLowerCase();
+        
         if (cat === cleanFilter || cat.includes(cleanFilter) || cleanFilter.includes(cat)) {
           return true;
         }
-        // Intelligent fuzzy aliases
-        if (cleanFilter === 'websites' && (cat.includes('web') || cat.includes('fintech') || cat.includes('portal') || cat.includes('architecture'))) return true;
-        if (cleanFilter === 'mobile apps' && (cat.includes('mobile') || cat.includes('app') || cat.includes('health') || cat.includes('ios') || cat.includes('android'))) return true;
-        if (cleanFilter === 'softwares' && (cat.includes('software') || cat.includes('crm') || cat.includes('erp') || cat.includes('automation') || cat.includes('saas') || cat.includes('cloud'))) return true;
-        if (cleanFilter === 'digital marketing' && (cat.includes('marketing') || cat.includes('ad') || cat.includes('growth') || cat.includes('seo') || cat.includes('media'))) return true;
+        // Intelligent fuzzy aliases for Web, Mobile App, Software, CRM, Digital Marketing, SEO
+        if (cleanFilter === 'websites' || cleanFilter === 'web' || cleanFilter === 'website') {
+          return cat.includes('web') || cat.includes('fintech') || cat.includes('portal') || cat.includes('architecture') || title.includes('web') || title.includes('gateway') || tech.includes('next');
+        }
+        if (cleanFilter === 'mobile apps' || cleanFilter === 'mobile app' || cleanFilter === 'mobile') {
+          return cat.includes('mobile') || cat.includes('app') || cat.includes('health') || cat.includes('ios') || cat.includes('android') || title.includes('mobile') || tech.includes('react native') || tech.includes('swift');
+        }
+        if (cleanFilter === 'softwares' || cleanFilter === 'software') {
+          return cat.includes('software') || cat.includes('crm') || cat.includes('erp') || cat.includes('automation') || cat.includes('saas') || cat.includes('cloud') || title.includes('crm') || title.includes('pipeline') || desc.includes('etl');
+        }
+        if (cleanFilter === 'crm') {
+          return cat.includes('crm') || title.includes('crm') || desc.includes('crm') || desc.includes('pipeline') || desc.includes('salesforce') || cat.includes('software');
+        }
+        if (cleanFilter === 'digital marketing' || cleanFilter === 'marketing') {
+          return cat.includes('marketing') || cat.includes('ad') || cat.includes('growth') || cat.includes('seo') || cat.includes('media') || title.includes('ad') || title.includes('marketing');
+        }
+        if (cleanFilter === 'seo') {
+          return cat.includes('seo') || cat.includes('marketing') || desc.includes('roas') || desc.includes('attribution') || desc.includes('growth') || desc.includes('seo');
+        }
         return false;
       });
 
@@ -625,7 +643,7 @@ function renderProjects(filter = 'all') {
       <article class="project-card animate-on-scroll">
         <div class="project-card-image-wrap">
           <img src="${p.image_url || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800'}" alt="${p.title}" class="project-card-image" loading="lazy">
-          <span class="project-category-badge">${p.category || 'Architecture'}</span>
+          <span class="project-category-badge">${p.category || 'Websites'}</span>
           ${isFeatured ? '<span class="project-featured-badge">Featured Case Study</span>' : ''}
         </div>
         <div class="project-card-body">
@@ -653,6 +671,62 @@ function renderProjects(filter = 'all') {
   // Re-observe newly injected cards for scroll animations
   observeNewCards(container);
 }
+
+// Global Category Filter & Scroll Controller
+window.filterPortfolioByCategory = function(categoryKey) {
+  if (!categoryKey) return;
+  playSound('chime');
+
+  let normalized = categoryKey.trim();
+  let targetTab = normalized;
+  const lower = normalized.toLowerCase();
+
+  // Map sub-services to primary portfolio tabs
+  if (lower === 'web' || lower.includes('website')) {
+    targetTab = 'Websites';
+  } else if (lower === 'mobile' || lower === 'mobile app' || lower === 'mobile apps' || lower.includes('app')) {
+    targetTab = 'Mobile Apps';
+  } else if (lower === 'software' || lower === 'softwares' || lower === 'crm' || lower.includes('crm') || lower.includes('cloud')) {
+    targetTab = 'Softwares';
+  } else if (lower === 'digital marketing' || lower === 'marketing' || lower === 'seo' || lower.includes('seo') || lower.includes('marketing')) {
+    targetTab = 'Digital Marketing';
+  }
+
+  // Update active button state in portfolio filter bar
+  const filterBtns = document.querySelectorAll('#portfolio-filter-buttons .portfolio-filter-btn');
+  let matchedBtn = null;
+  filterBtns.forEach(btn => {
+    const btnFilter = (btn.dataset.filter || btn.textContent || '').trim().toLowerCase();
+    if (btnFilter === targetTab.toLowerCase()) {
+      btn.classList.add('active');
+      matchedBtn = btn;
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Render projects for this selection
+  renderProjects(normalized);
+
+  // Smooth scroll down to portfolio section
+  const portfolioSection = document.getElementById('portfolio-section');
+  if (portfolioSection) {
+    const navbarHeight = document.getElementById('mnc-navbar')?.offsetHeight || 70;
+    const sectionTop = portfolioSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 15;
+    window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+
+    // Visual feedback pulse on the activated filter button
+    if (matchedBtn) {
+      matchedBtn.style.transition = 'all 0.35s ease';
+      matchedBtn.style.transform = 'scale(1.1)';
+      matchedBtn.style.boxShadow = '0 0 16px rgba(190, 146, 56, 0.6)';
+      setTimeout(() => {
+        matchedBtn.style.transform = '';
+        matchedBtn.style.boxShadow = '';
+      }, 500);
+    }
+  }
+};
 
 // Open consultation modal pre-filled with project
 window.openConsultationForProject = function(projectTitle) {
@@ -742,6 +816,23 @@ function initDynamicFilters() {
       btn.classList.add('active');
       const filter = btn.dataset.filter || 'all';
       renderProjects(filter);
+    });
+  });
+
+  // Connect SG Enterprise Suite capability badges to filter portfolio section
+  const clusterBadges = document.querySelectorAll('.suite-service-cluster .cluster-badge, [data-portfolio-filter]');
+  clusterBadges.forEach(badge => {
+    const triggerFilter = () => {
+      const filterKey = badge.dataset.portfolioFilter || badge.querySelector('.badge-label')?.textContent || '';
+      window.filterPortfolioByCategory(filterKey);
+    };
+
+    badge.addEventListener('click', triggerFilter);
+    badge.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerFilter();
+      }
     });
   });
 

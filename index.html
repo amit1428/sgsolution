@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="./style.css?v=4.5">
+  <link rel="stylesheet" href="./style.css?v=5.0">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body class="antialiased selection-gold">
@@ -353,29 +353,29 @@
           </div>
         </div>
 
-        <!-- 6 Distinct Service Badges Cluster -->
-        <div class="suite-service-cluster">
-          <div class="cluster-badge badge-web" title="Web & Headless Engineering">
+        <!-- 6 Distinct Service Badges Cluster (Interactive Portfolio Filters) -->
+        <div class="suite-service-cluster" id="suite-service-cluster">
+          <div class="cluster-badge badge-web" data-portfolio-filter="Websites" role="button" tabindex="0" title="Click to view Websites & Architecture Case Studies">
             <span class="material-symbols-outlined">language</span>
             <span class="badge-label">Web</span>
           </div>
-          <div class="cluster-badge badge-mobile" title="iOS & Android Mobile Apps">
+          <div class="cluster-badge badge-mobile" data-portfolio-filter="Mobile Apps" role="button" tabindex="0" title="Click to view Mobile App Case Studies">
             <span class="material-symbols-outlined">phone_iphone</span>
             <span class="badge-label">Mobile App</span>
           </div>
-          <div class="cluster-badge badge-software" title="Custom Software Architecture">
+          <div class="cluster-badge badge-software" data-portfolio-filter="Softwares" role="button" tabindex="0" title="Click to view Custom Software & Architecture Case Studies">
             <span class="material-symbols-outlined">terminal</span>
             <span class="badge-label">Software</span>
           </div>
-          <div class="cluster-badge badge-crm" title="CRM & Pipeline Automation">
+          <div class="cluster-badge badge-crm" data-portfolio-filter="CRM" role="button" tabindex="0" title="Click to view CRM & Enterprise Automation Case Studies">
             <span class="material-symbols-outlined">schema</span>
             <span class="badge-label">CRM</span>
           </div>
-          <div class="cluster-badge badge-marketing" title="Enterprise Digital Marketing">
+          <div class="cluster-badge badge-marketing" data-portfolio-filter="Digital Marketing" role="button" tabindex="0" title="Click to view Digital Marketing Case Studies">
             <span class="material-symbols-outlined">trending_up</span>
             <span class="badge-label">Digital Marketing</span>
           </div>
-          <div class="cluster-badge badge-seo" title="Technical SEO Architecture">
+          <div class="cluster-badge badge-seo" data-portfolio-filter="SEO" role="button" tabindex="0" title="Click to view SEO & Growth Engineering Case Studies">
             <span class="material-symbols-outlined">query_stats</span>
             <span class="badge-label">SEO</span>
           </div>
@@ -1249,6 +1249,6 @@
   <!-- Global Toast Notification Container -->
   <div class="toast-container" id="site-toast-container"></div>
 
-  <script type="module" src="./main.js?v=4.5"></script>
+  <script type="module" src="./main.js?v=5.0"></script>
 </body>
 </html>

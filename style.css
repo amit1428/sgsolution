@@ -1188,26 +1188,37 @@ section, main, header, footer, .section-container {
 }
 
 .cluster-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  border-radius: 14px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full, 9999px);
   color: #ffffff !important;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  cursor: default;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer !important;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .cluster-badge span {
   color: #ffffff !important;
+  pointer-events: none;
 }
 
 .cluster-badge:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.cluster-badge:active {
+  transform: translateY(0px) scale(0.97);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .badge-web { background: linear-gradient(135deg, #0d6e50, #059669) !important; }
