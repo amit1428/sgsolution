@@ -279,54 +279,66 @@ function initCinematicNavigation() {
 }
 
 /* ==========================================================================
-   Live Metric Counter Animations
+   Live Metric Running Counter Animations (Scroll Triggered)
    ========================================================================== */
 function initMetricCounters() {
   const counterElements = document.querySelectorAll('.counter');
-  const metricsSection = document.getElementById('metrics-section') || document.querySelector('.metrics-grid');
-  let animated = false;
+  
+  function animateRunningNumber(el) {
+    if (el.hasAttribute('data-counted')) return;
+    el.setAttribute('data-counted', 'true');
+    
+    const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    const duration = 1800; // ms running duration
+    const startTime = performance.now();
+    
+    el.classList.add('is-counting');
+    let lastTick = 0;
 
-  function runCounters() {
-    if (animated) return;
-    animated = true;
+    function step(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      
+      // Exponential / Quartic Ease Out for running speed
+      const easeVal = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const currentCount = Math.floor(easeVal * target);
 
-    counterElements.forEach(el => {
-      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
-      const duration = 1600; // ms
-      const startTime = performance.now();
+      el.textContent = currentCount;
 
-      function updateCounter(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        const easeVal = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        const currentCount = Math.floor(easeVal * target);
-
-        el.textContent = currentCount;
-
-        if (progress < 1) {
-          requestAnimationFrame(updateCounter);
-        } else {
-          el.textContent = target;
-        }
+      // Subtle audio feedback during rolling numbers (throttled)
+      if (progress < 0.85 && currentTime - lastTick > 90) {
+        lastTick = currentTime;
+        playSound('tick');
       }
 
-      requestAnimationFrame(updateCounter);
-    });
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+        el.classList.remove('is-counting');
+        el.classList.add('counted');
+      }
+    }
+
+    requestAnimationFrame(step);
   }
 
-  if (metricsSection && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
+  if ('IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          runCounters();
-          observer.unobserve(entry.target);
+          animateRunningNumber(entry.target);
+          counterObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { 
+      threshold: 0.35,
+      rootMargin: '0px 0px -40px 0px' 
+    });
 
-    observer.observe(metricsSection);
+    counterElements.forEach(el => counterObserver.observe(el));
   } else {
-    runCounters();
+    counterElements.forEach(el => animateRunningNumber(el));
   }
 }
 
