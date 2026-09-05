@@ -482,10 +482,29 @@ window.editProject = function(p) {
   document.getElementById('project-modal-title').textContent = 'Edit Project';
   document.getElementById('proj-id').value = p.id;
   document.getElementById('proj-title').value = p.title || '';
-  document.getElementById('proj-category').value = p.category || 'FinTech & Web';
+
+  const catSelect = document.getElementById('proj-category');
+  if (catSelect && p.category) {
+    let found = false;
+    for (let i = 0; i < catSelect.options.length; i++) {
+      if (catSelect.options[i].value.toLowerCase() === p.category.toLowerCase()) {
+        catSelect.selectedIndex = i;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      const opt = document.createElement('option');
+      opt.value = p.category;
+      opt.textContent = p.category;
+      catSelect.appendChild(opt);
+      catSelect.value = p.category;
+    }
+  }
+
   document.getElementById('proj-client').value = p.client || '';
   document.getElementById('proj-year').value = p.year || '2025';
-  document.getElementById('proj-tech').value = p.tech_stack || '';
+  document.getElementById('proj-tech').value = p.tech_stack || p.technologies || '';
   document.getElementById('proj-desc').value = p.description || '';
   document.getElementById('proj-image-url').value = p.image_url || '';
   setImgPreview('proj-preview-img', p.image_url || '');
@@ -497,8 +516,27 @@ window.editGalleryItem = function(g) {
   document.getElementById('gallery-modal-title').textContent = 'Edit Gallery Item';
   document.getElementById('gal-id').value = g.id;
   document.getElementById('gal-title').value = g.title || '';
-  document.getElementById('gal-category').value = g.category || 'Corporate Hubs';
-  document.getElementById('gal-caption').value = g.caption || '';
+
+  const catSelect = document.getElementById('gal-category');
+  if (catSelect && g.category) {
+    let found = false;
+    for (let i = 0; i < catSelect.options.length; i++) {
+      if (catSelect.options[i].value.toLowerCase() === g.category.toLowerCase()) {
+        catSelect.selectedIndex = i;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      const opt = document.createElement('option');
+      opt.value = g.category;
+      opt.textContent = g.category;
+      catSelect.appendChild(opt);
+      catSelect.value = g.category;
+    }
+  }
+
+  document.getElementById('gal-caption').value = g.caption || g.description || '';
   document.getElementById('gal-image-url').value = g.image_url || '';
   setImgPreview('gal-preview-img', g.image_url || '');
   openModal('gallery-modal');
@@ -509,10 +547,10 @@ window.editTestimonial = function(t) {
   document.getElementById('testimonial-modal-title').textContent = 'Edit Testimonial';
   document.getElementById('test-id').value = t.id;
   document.getElementById('test-name').value = t.client_name || '';
-  document.getElementById('test-title').value = t.client_title || '';
+  document.getElementById('test-title').value = t.client_title || t.role || '';
   document.getElementById('test-company').value = t.company || '';
   document.getElementById('test-rating').value = t.rating || 5;
-  document.getElementById('test-quote').value = t.quote || '';
+  document.getElementById('test-quote').value = t.quote || t.content || '';
   document.getElementById('test-avatar-url').value = t.avatar_url || '';
   setImgPreview('test-preview-img', t.avatar_url || '');
   openModal('testimonial-modal');

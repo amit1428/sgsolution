@@ -4,24 +4,31 @@
  * Handles Public Data Hydration & Authenticated CMS CRUD Operations
  */
 
+require_once __DIR__ . '/auth.php';
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-require_once __DIR__ . '/auth.php';
-
 $action = $_GET['action'] ?? '';
 
-// Helper to parse JSON input for POST/PUT requests
+// Helper to parse JSON or form input for POST/PUT requests
 function getJsonInput() {
     $raw = file_get_contents('php://input');
-    return json_decode($raw, true) ?? [];
+    $decoded = json_decode($raw, true);
+    if (is_array($decoded)) {
+        return $decoded;
+    }
+    if (!empty($_POST)) {
+        return $_POST;
+    }
+    return [];
 }
 
 try {
@@ -35,11 +42,19 @@ try {
             $projects = $pdo->query("SELECT * FROM projects ORDER BY sort_order ASC, id DESC")->fetchAll();
             $gallery = $pdo->query("SELECT * FROM gallery ORDER BY sort_order ASC, id DESC")->fetchAll();
             $testimonials = $pdo->query("SELECT * FROM testimonials ORDER BY sort_order ASC, id DESC")->fetchAll();
-            $settingsRows = $pdo->query("SELECT key, value FROM settings")->fetchAll();
             
             $settings = [];
-            foreach ($settingsRows as $row) {
-                $settings[$row['key']] = $row['value'];
+            try {
+                $settingsRows = $pdo->query("SELECT setting_key, setting_value FROM settings")->fetchAll();
+                foreach ($settingsRows as $row) {
+                    $k = $row['setting_key'] ?? $row['key'] ?? '';
+                    $v = $row['setting_value'] ?? $row['value'] ?? '';
+                    if (!empty($k)) {
+                        $settings[$k] = $v;
+                    }
+                }
+            } catch (Exception $se) {
+                // Ignore settings table exception if not configured
             }
 
             echo json_encode([
@@ -69,13 +84,13 @@ try {
             break;
 
         case 'submit_consultation':
-            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
                 http_response_code(405);
                 echo json_encode(['success' => false, 'error' => 'Method not allowed']);
                 break;
             }
 
-            $input = !empty($_POST) ? $_POST : getJsonInput();
+            $input = getJsonInput();
             $name = trim($input['name'] ?? '');
             $email = trim($input['email'] ?? '');
             $company = trim($input['company'] ?? '');
@@ -115,7 +130,7 @@ try {
             break;
 
         case 'login':
-            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
                 http_response_code(405);
                 echo json_encode(['success' => false, 'error' => 'Method not allowed']);
                 break;
@@ -138,42 +153,54 @@ try {
             $stmt = $pdo->prepare("INSERT INTO projects (title, category, client, year, description, image_url, live_link, tech_stack, featured, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['title'] ?? 'Untitled Project',
-                $data['category'] ?? 'Engineering & Web',
+                $data['category'] ?? 'FinTech & Web',
                 $data['client'] ?? 'Enterprise Client',
                 $data['year'] ?? date('Y'),
                 $data['description'] ?? '',
                 $data['image_url'] ?? '',
                 $data['live_link'] ?? '#',
                 $data['tech_stack'] ?? '',
-                intval($data['featured'] ?? 0),
+                intval($data['featured'] ?? 1),
                 intval($data['sort_order'] ?? 0)
             ]);
-            echo json_encode(['success' => true, 'id' => $pdo->lastInsertId()]);
+            echo json_encode(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
             break;
 
         case 'update_project':
             requireAuth();
             $data = getJsonInput();
+            $id = intval($data['id'] ?? 0);
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Project ID is required for update.']);
+                break;
+            }
             $stmt = $pdo->prepare("UPDATE projects SET title = ?, category = ?, client = ?, year = ?, description = ?, image_url = ?, live_link = ?, tech_stack = ?, featured = ?, sort_order = ? WHERE id = ?");
             $stmt->execute([
-                $data['title'],
-                $data['category'],
-                $data['client'],
-                $data['year'],
-                $data['description'],
-                $data['image_url'],
-                $data['live_link'],
-                $data['tech_stack'],
-                intval($data['featured'] ?? 0),
+                $data['title'] ?? 'Untitled Project',
+                $data['category'] ?? 'FinTech & Web',
+                $data['client'] ?? 'Enterprise Client',
+                $data['year'] ?? date('Y'),
+                $data['description'] ?? '',
+                $data['image_url'] ?? '',
+                $data['live_link'] ?? '#',
+                $data['tech_stack'] ?? '',
+                intval($data['featured'] ?? 1),
                 intval($data['sort_order'] ?? 0),
-                $data['id']
+                $id
             ]);
             echo json_encode(['success' => true]);
             break;
 
         case 'delete_project':
             requireAuth();
-            $id = $_GET['id'] ?? (getJsonInput()['id'] ?? 0);
+            $data = getJsonInput();
+            $id = intval($_GET['id'] ?? ($data['id'] ?? 0));
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Valid Project ID is required for deletion.']);
+                break;
+            }
             $stmt = $pdo->prepare("DELETE FROM projects WHERE id = ?");
             $stmt->execute([$id]);
             echo json_encode(['success' => true]);
@@ -186,32 +213,44 @@ try {
             $stmt = $pdo->prepare("INSERT INTO gallery (title, category, image_url, caption, sort_order) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['title'] ?? 'Gallery Item',
-                $data['category'] ?? 'General',
+                $data['category'] ?? 'Corporate Hubs',
                 $data['image_url'] ?? '',
                 $data['caption'] ?? '',
                 intval($data['sort_order'] ?? 0)
             ]);
-            echo json_encode(['success' => true, 'id' => $pdo->lastInsertId()]);
+            echo json_encode(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
             break;
 
         case 'update_gallery':
             requireAuth();
             $data = getJsonInput();
+            $id = intval($data['id'] ?? 0);
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Gallery ID is required for update.']);
+                break;
+            }
             $stmt = $pdo->prepare("UPDATE gallery SET title = ?, category = ?, image_url = ?, caption = ?, sort_order = ? WHERE id = ?");
             $stmt->execute([
-                $data['title'],
-                $data['category'],
-                $data['image_url'],
-                $data['caption'],
+                $data['title'] ?? 'Gallery Item',
+                $data['category'] ?? 'Corporate Hubs',
+                $data['image_url'] ?? '',
+                $data['caption'] ?? '',
                 intval($data['sort_order'] ?? 0),
-                $data['id']
+                $id
             ]);
             echo json_encode(['success' => true]);
             break;
 
         case 'delete_gallery':
             requireAuth();
-            $id = $_GET['id'] ?? (getJsonInput()['id'] ?? 0);
+            $data = getJsonInput();
+            $id = intval($_GET['id'] ?? ($data['id'] ?? 0));
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Valid Gallery ID is required for deletion.']);
+                break;
+            }
             $stmt = $pdo->prepare("DELETE FROM gallery WHERE id = ?");
             $stmt->execute([$id]);
             echo json_encode(['success' => true]);
@@ -231,29 +270,41 @@ try {
                 intval($data['rating'] ?? 5),
                 intval($data['sort_order'] ?? 0)
             ]);
-            echo json_encode(['success' => true, 'id' => $pdo->lastInsertId()]);
+            echo json_encode(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
             break;
 
         case 'update_testimonial':
             requireAuth();
             $data = getJsonInput();
+            $id = intval($data['id'] ?? 0);
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Testimonial ID is required for update.']);
+                break;
+            }
             $stmt = $pdo->prepare("UPDATE testimonials SET client_name = ?, client_title = ?, company = ?, quote = ?, avatar_url = ?, rating = ?, sort_order = ? WHERE id = ?");
             $stmt->execute([
-                $data['client_name'],
-                $data['client_title'],
-                $data['company'],
-                $data['quote'],
-                $data['avatar_url'],
+                $data['client_name'] ?? 'Client Name',
+                $data['client_title'] ?? 'Executive',
+                $data['company'] ?? 'Enterprise Co',
+                $data['quote'] ?? '',
+                $data['avatar_url'] ?? '',
                 intval($data['rating'] ?? 5),
                 intval($data['sort_order'] ?? 0),
-                $data['id']
+                $id
             ]);
             echo json_encode(['success' => true]);
             break;
 
         case 'delete_testimonial':
             requireAuth();
-            $id = $_GET['id'] ?? (getJsonInput()['id'] ?? 0);
+            $data = getJsonInput();
+            $id = intval($_GET['id'] ?? ($data['id'] ?? 0));
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Valid Testimonial ID is required for deletion.']);
+                break;
+            }
             $stmt = $pdo->prepare("DELETE FROM testimonials WHERE id = ?");
             $stmt->execute([$id]);
             echo json_encode(['success' => true]);
@@ -269,14 +320,22 @@ try {
         case 'update_consultation_status':
             requireAuth();
             $data = getJsonInput();
+            $id = intval($data['id'] ?? 0);
+            $status = trim($data['status'] ?? 'New');
             $stmt = $pdo->prepare("UPDATE consultations SET status = ? WHERE id = ?");
-            $stmt->execute([$data['status'], $data['id']]);
+            $stmt->execute([$status, $id]);
             echo json_encode(['success' => true]);
             break;
 
         case 'delete_consultation':
             requireAuth();
-            $id = $_GET['id'] ?? (getJsonInput()['id'] ?? 0);
+            $data = getJsonInput();
+            $id = intval($_GET['id'] ?? ($data['id'] ?? 0));
+            if ($id <= 0) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Valid Consultation ID is required for deletion.']);
+                break;
+            }
             $stmt = $pdo->prepare("DELETE FROM consultations WHERE id = ?");
             $stmt->execute([$id]);
             echo json_encode(['success' => true]);
@@ -285,11 +344,11 @@ try {
         /* --- SETTINGS & GLOBAL STATS --- */
         case 'get_dashboard_stats':
             requireAuth();
-            $projectsCount = $pdo->query("SELECT COUNT(*) as c FROM projects")->fetch()['c'];
-            $galleryCount = $pdo->query("SELECT COUNT(*) as c FROM gallery")->fetch()['c'];
-            $testimonialsCount = $pdo->query("SELECT COUNT(*) as c FROM testimonials")->fetch()['c'];
-            $leadsCount = $pdo->query("SELECT COUNT(*) as c FROM consultations")->fetch()['c'];
-            $newLeadsCount = $pdo->query("SELECT COUNT(*) as c FROM consultations WHERE status = 'New'")->fetch()['c'];
+            $projectsCount = (int)($pdo->query("SELECT COUNT(*) as c FROM projects")->fetch()['c'] ?? 0);
+            $galleryCount = (int)($pdo->query("SELECT COUNT(*) as c FROM gallery")->fetch()['c'] ?? 0);
+            $testimonialsCount = (int)($pdo->query("SELECT COUNT(*) as c FROM testimonials")->fetch()['c'] ?? 0);
+            $leadsCount = (int)($pdo->query("SELECT COUNT(*) as c FROM consultations")->fetch()['c'] ?? 0);
+            $newLeadsCount = (int)($pdo->query("SELECT COUNT(*) as c FROM consultations WHERE status = 'New'")->fetch()['c'] ?? 0);
 
             echo json_encode([
                 'success' => true,

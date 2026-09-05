@@ -124,4 +124,17 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY (`setting_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- -------------------------------------------------------------------------
+-- Table: system_config (System Initialization & Seed Control)
+-- -------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `system_config` (
+  `config_key` VARCHAR(100) NOT NULL,
+  `config_value` TEXT NOT NULL,
+  PRIMARY KEY (`config_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `system_config` (`config_key`, `config_value`) VALUES
+('db_seeded', '1')
+ON DUPLICATE KEY UPDATE `config_value` = '1';
+
 SET FOREIGN_KEY_CHECKS = 1;

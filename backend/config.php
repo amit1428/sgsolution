@@ -163,6 +163,22 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
+
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS `settings` (
+                `setting_key` VARCHAR(100) NOT NULL,
+                `setting_value` TEXT NOT NULL,
+                PRIMARY KEY (`setting_key`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS `system_config` (
+                `config_key` VARCHAR(100) NOT NULL,
+                `config_value` TEXT NOT NULL,
+                PRIMARY KEY (`config_key`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
     } else {
         // SQLite Tables
         $pdo->exec("
@@ -232,6 +248,20 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         ");
+
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS settings (
+                setting_key TEXT PRIMARY KEY,
+                setting_value TEXT NOT NULL
+            );
+        ");
+
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS system_config (
+                config_key TEXT PRIMARY KEY,
+                config_value TEXT NOT NULL
+            );
+        ");
     }
 
     // Seed or update master admin (support@sgsolutions.co.in / SGSolution@2026@)
@@ -248,10 +278,13 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
         $insertAdmin->execute(['support@sgsolutions.co.in', $masterPassHash, 'SG Solutions Support', 'support@sgsolutions.co.in']);
     }
 
-    // Seed initial Projects if empty
-    $pStmt = $pdo->query("SELECT COUNT(*) as count FROM projects");
-    $pRes = $pStmt->fetch();
-    if ($pRes['count'] == 0) {
+    // Check if system has already performed the initial seed
+    $seedCheck = $pdo->prepare("SELECT config_value FROM system_config WHERE config_key = ?");
+    $seedCheck->execute(['db_seeded']);
+    $isSeeded = $seedCheck->fetch();
+
+    if (!$isSeeded) {
+        // Initial Seed for Projects (Only executed ONCE on virgin database)
         $initialProjects = [
             [
                 'title' => 'Nexus Global Wealth Gateway',
@@ -307,12 +340,8 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
         foreach ($initialProjects as $p) {
             $insProj->execute([$p['title'], $p['category'], $p['client'], $p['year'], $p['description'], $p['image_url'], $p['live_link'], $p['tech_stack'], $p['featured'], $p['sort_order']]);
         }
-    }
 
-    // Seed initial Gallery if empty
-    $gStmt = $pdo->query("SELECT COUNT(*) as count FROM gallery");
-    $gRes = $gStmt->fetch();
-    if ($gRes['count'] == 0) {
+        // Initial Seed for Gallery
         $initialGallery = [
             [
                 'title' => 'Executive Innovation Hub',
@@ -362,12 +391,8 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
         foreach ($initialGallery as $g) {
             $insGal->execute([$g['title'], $g['category'], $g['image_url'], $g['caption'], $g['sort_order']]);
         }
-    }
 
-    // Seed initial Testimonials if empty
-    $tStmt = $pdo->query("SELECT COUNT(*) as count FROM testimonials");
-    $tRes = $tStmt->fetch();
-    if ($tRes['count'] == 0) {
+        // Initial Seed for Testimonials
         $initialTestimonials = [
             [
                 'client_name' => 'Dr. Aris Thorne',
@@ -402,6 +427,10 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
         foreach ($initialTestimonials as $t) {
             $insTest->execute([$t['client_name'], $t['client_title'], $t['company'], $t['quote'], $t['avatar_url'], $t['rating'], $t['sort_order']]);
         }
+
+        // Mark seed as completed permanently
+        $markSeed = $pdo->prepare("INSERT INTO system_config (config_key, config_value) VALUES (?, ?)");
+        $markSeed->execute(['db_seeded', '1']);
     }
 }
 
