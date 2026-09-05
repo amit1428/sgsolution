@@ -3090,16 +3090,20 @@ section, main, header, footer, .section-container {
    ========================================================================== */
 .floating-social-dock {
   position: fixed;
-  right: 20px;
+  right: 18px;
+  left: auto;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
   pointer-events: auto;
   max-height: 85vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   touch-action: manipulation;
 }
 
@@ -3107,6 +3111,8 @@ section, main, header, footer, .section-container {
   position: relative;
   width: 44px;
   height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -3120,6 +3126,7 @@ section, main, header, footer, .section-container {
   -webkit-user-select: none;
   touch-action: manipulation;
   flex-shrink: 0;
+  margin: 0;
 }
 
 .social-dock-btn svg {
@@ -3287,12 +3294,15 @@ section, main, header, footer, .section-container {
   }
 
   .floating-social-dock {
-    right: 12px;
+    right: 14px;
+    left: auto;
     gap: 9px;
   }
   .social-dock-btn {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
   }
 }
 
@@ -3510,18 +3520,27 @@ section, main, header, footer, .section-container {
     padding: 10px !important;
   }
 
-  /* Floating Social Dock on Mobile */
+  /* Floating Social Dock on Mobile / Tablet */
   .floating-social-dock {
-    right: 8px !important;
+    position: fixed !important;
+    right: 12px !important;
+    left: auto !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    gap: 7px !important;
-    z-index: 999 !important;
+    gap: 8px !important;
+    z-index: 9999 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .social-dock-btn {
-    width: 36px !important;
-    height: 36px !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    margin: 0 !important;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22) !important;
   }
 
@@ -3534,8 +3553,8 @@ section, main, header, footer, .section-container {
   }
 
   .social-dock-btn svg {
-    width: 17px !important;
-    height: 17px !important;
+    width: 18px !important;
+    height: 18px !important;
   }
 
   .social-dock-tooltip {
@@ -3579,24 +3598,33 @@ section, main, header, footer, .section-container {
     gap: 24px !important;
   }
 
-  /* Extra compact floating dock for small phone screens (320px - 480px) */
+  /* Extra compact floating dock for phone screens (OnePlus Nord, iPhone, Samsung, etc.) */
   .floating-social-dock {
-    right: 6px !important;
+    position: fixed !important;
+    right: 10px !important;
+    left: auto !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     gap: 6px !important;
-    z-index: 999 !important;
+    z-index: 9999 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .social-dock-btn {
-    width: 33px !important;
-    height: 33px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24) !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    max-width: 34px !important;
+    max-height: 34px !important;
+    margin: 0 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
   }
 
   .social-dock-btn svg {
-    width: 15px !important;
-    height: 15px !important;
+    width: 16px !important;
+    height: 16px !important;
   }
 }
 
