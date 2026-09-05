@@ -1175,10 +1175,10 @@ section, main, header, footer, .section-container {
 
 .badge-web { background: linear-gradient(135deg, #0d6e50, #059669); }
 .badge-mobile { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+.badge-software { background: linear-gradient(135deg, #7c3aed, #a855f7); }
 .badge-crm { background: linear-gradient(135deg, #be9238, #d4a742); }
 .badge-marketing { background: linear-gradient(135deg, #e11d48, #f43f5e); }
 .badge-seo { background: linear-gradient(135deg, #0284c7, #38bdf8); }
-.badge-cloud { background: linear-gradient(135deg, #7c3aed, #a855f7); }
 
 .suite-action-group {
   display: flex;
