@@ -374,11 +374,10 @@ $adminUser = $_SESSION['sg_admin_username'] ?? 'admin';
           <div class="form-group">
             <label class="form-label" for="proj-category">Category *</label>
             <select id="proj-category" class="form-select">
-              <option value="FinTech & Web">FinTech &amp; Web</option>
-              <option value="Mobile & Health">Mobile &amp; Health</option>
-              <option value="Enterprise CRM">Enterprise CRM</option>
+              <option value="Websites">Websites</option>
+              <option value="Mobile Apps">Mobile Apps</option>
+              <option value="Softwares">Softwares</option>
               <option value="Digital Marketing">Digital Marketing</option>
-              <option value="Cloud Architecture">Cloud Architecture</option>
             </select>
           </div>
         </div>

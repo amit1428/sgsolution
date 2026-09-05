@@ -3022,25 +3022,93 @@ section, main, header, footer, .section-container {
 
 .project-card-footer {
   border-top: 1px solid var(--border-light);
-  padding-top: 12px;
+  padding-top: 14px;
+  margin-top: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
 }
 
 .project-view-btn {
+  appearance: none;
+  -webkit-appearance: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: #002a1d;
-  font-size: 0.85rem;
+  justify-content: space-between;
+  width: 100%;
+  padding: 11px 18px;
+  background: linear-gradient(135deg, #00281b 0%, #01432f 100%);
+  color: #ffffff;
+  font-family: var(--font-mono, 'Space Grotesk', sans-serif);
+  font-size: 0.8rem;
   font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(190, 146, 56, 0.32);
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 4px 14px rgba(0, 40, 27, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
   text-decoration: none;
-  transition: all 0.2s ease;
+}
+
+.project-view-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.project-view-btn:hover::before {
+  left: 120%;
+}
+
+.project-view-btn .project-btn-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(190, 146, 56, 0.25);
+  color: #ffd15c;
+  border: 1px solid rgba(190, 146, 56, 0.45);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.project-view-btn .project-btn-icon-wrap .material-symbols-outlined {
+  font-size: 14px;
+  line-height: 1;
 }
 
 .project-view-btn:hover {
-  color: #be9238;
+  background: linear-gradient(135deg, #be9238 0%, #d4a742 100%);
+  color: #001f15;
+  border-color: #d4a742;
+  box-shadow: 0 8px 22px rgba(190, 146, 56, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.project-view-btn:hover .project-btn-icon-wrap {
+  background: #00281b;
+  color: #ffd15c;
+  border-color: #00281b;
+  transform: translateX(4px);
+}
+
+.project-view-btn:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Dynamic Visual Gallery Grid */

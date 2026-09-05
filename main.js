@@ -450,7 +450,7 @@ const FALLBACK_PROJECTS = [
     id: 1,
     title: "Apex Global FinTech Engine",
     client: "Apex Financial Group",
-    category: "FinTech",
+    category: "Websites",
     technologies: "Next.js, Python, Rust, SQLite",
     image_url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
     description: "Ultra-low-latency financial analytics engine processing 1.2M events/sec with sub-millisecond settlement pipelines.",
@@ -460,7 +460,7 @@ const FALLBACK_PROJECTS = [
     id: 2,
     title: "Omnichannel Retail Architecture",
     client: "Nordic Luxury Group",
-    category: "Mobile & Web",
+    category: "Mobile Apps",
     technologies: "React Native, Node.js, GraphQL",
     image_url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
     description: "Enterprise mobile and web commerce platform spanning 24 international localized storefronts.",
@@ -470,11 +470,21 @@ const FALLBACK_PROJECTS = [
     id: 3,
     title: "Autonomous Logistics CRM & ERP",
     client: "TransGlobal Freight",
-    category: "Automation",
+    category: "Softwares",
     technologies: "Vue.js, Django, Redis, SQLite",
     image_url: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800",
     description: "Intelligent dispatch automation & unified CRM pipeline orchestrating 15,000 daily fleet routes.",
     is_featured: 0
+  },
+  {
+    id: 4,
+    title: "OmniScale Algorithmic Ad Engine",
+    client: "Hyperion Brands LLC",
+    category: "Digital Marketing",
+    technologies: "Attribution AI, Google Ads API, BigQuery",
+    image_url: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800",
+    description: "Deployed an AI-powered multi-touch attribution engine that optimized $12M+ annual media spend, scaling customer acquisition ROAS by 340%.",
+    is_featured: 1
   }
 ];
 
@@ -580,15 +590,28 @@ function renderProjects(filter = 'all') {
   const container = document.getElementById('dynamic-projects-grid');
   if (!container) return;
 
-  const filtered = filter === 'all' 
+  const cleanFilter = filter.trim().toLowerCase();
+  const filtered = cleanFilter === 'all' 
     ? siteProjects 
-    : siteProjects.filter(p => p.category && p.category.toLowerCase().includes(filter.toLowerCase()));
+    : siteProjects.filter(p => {
+        if (!p.category) return false;
+        const cat = p.category.toLowerCase().trim();
+        if (cat === cleanFilter || cat.includes(cleanFilter) || cleanFilter.includes(cat)) {
+          return true;
+        }
+        // Intelligent fuzzy aliases
+        if (cleanFilter === 'websites' && (cat.includes('web') || cat.includes('fintech') || cat.includes('portal') || cat.includes('architecture'))) return true;
+        if (cleanFilter === 'mobile apps' && (cat.includes('mobile') || cat.includes('app') || cat.includes('health') || cat.includes('ios') || cat.includes('android'))) return true;
+        if (cleanFilter === 'softwares' && (cat.includes('software') || cat.includes('crm') || cat.includes('erp') || cat.includes('automation') || cat.includes('saas') || cat.includes('cloud'))) return true;
+        if (cleanFilter === 'digital marketing' && (cat.includes('marketing') || cat.includes('ad') || cat.includes('growth') || cat.includes('seo') || cat.includes('media'))) return true;
+        return false;
+      });
 
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="empty-state-box">
         <span class="material-symbols-outlined text-gold">folder_open</span>
-        <span>No projects found. Add projects from the Admin CMS to display them live.</span>
+        <span>No projects found in this category. Add projects from the Admin CMS to display them live.</span>
       </div>
     `;
     return;
@@ -617,7 +640,9 @@ function renderProjects(filter = 'all') {
           <div class="project-card-footer">
             <button class="project-view-btn" onclick="openConsultationForProject('${encodeURIComponent(p.title)}')">
               <span>Request System Brief</span>
-              <span class="material-symbols-outlined text-xs">arrow_forward</span>
+              <span class="project-btn-icon-wrap">
+                <span class="material-symbols-outlined">arrow_forward</span>
+              </span>
             </button>
           </div>
         </div>

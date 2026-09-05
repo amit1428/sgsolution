@@ -153,7 +153,7 @@ try {
             $stmt = $pdo->prepare("INSERT INTO projects (title, category, client, year, description, image_url, live_link, tech_stack, featured, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['title'] ?? 'Untitled Project',
-                $data['category'] ?? 'FinTech & Web',
+                $data['category'] ?? 'Websites',
                 $data['client'] ?? 'Enterprise Client',
                 $data['year'] ?? date('Y'),
                 $data['description'] ?? '',
@@ -178,7 +178,7 @@ try {
             $stmt = $pdo->prepare("UPDATE projects SET title = ?, category = ?, client = ?, year = ?, description = ?, image_url = ?, live_link = ?, tech_stack = ?, featured = ?, sort_order = ? WHERE id = ?");
             $stmt->execute([
                 $data['title'] ?? 'Untitled Project',
-                $data['category'] ?? 'FinTech & Web',
+                $data['category'] ?? 'Websites',
                 $data['client'] ?? 'Enterprise Client',
                 $data['year'] ?? date('Y'),
                 $data['description'] ?? '',

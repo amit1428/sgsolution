@@ -288,7 +288,7 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
         $initialProjects = [
             [
                 'title' => 'Nexus Global Wealth Gateway',
-                'category' => 'FinTech & Web',
+                'category' => 'Websites',
                 'client' => 'Aether Financial AG',
                 'year' => '2025',
                 'description' => 'Architected a sub-millisecond multi-currency wealth management platform with real-time biometric fraud telemetry and institutional trading dashboards.',
@@ -300,7 +300,7 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
             ],
             [
                 'title' => 'Lumina Health Biometric OS',
-                'category' => 'Mobile & Health',
+                'category' => 'Mobile Apps',
                 'client' => 'Lumina Care Labs',
                 'year' => '2025',
                 'description' => 'Engineered a 120Hz native mobile health monitoring system delivering real-time vitals synchronization across iOS and Android with zero latency.',
@@ -312,7 +312,7 @@ function initDatabase($pdo, $dbEngine = 'sqlite') {
             ],
             [
                 'title' => 'Vortex Automated CRM Pipeline',
-                'category' => 'Enterprise CRM',
+                'category' => 'Softwares',
                 'client' => 'Starlight Logistics Corp',
                 'year' => '2024',
                 'description' => 'Unified 14 disparate enterprise customer data systems into a single automated ETL pipeline processing 50M+ daily events with 99.999% reliability.',
